@@ -12,6 +12,12 @@
     "trailingComma": "es5"
   },
   "dependencies": {
+    "@tailwindcss/forms": "^0.3.2",
+    "@tailwindcss/postcss7-compat": "^2.1.0",
+    "@tailwindcss/typography": "^0.4.0",
+    "autoprefixer": "^9.8.6",
+    "postcss": "^7.0.35",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.0",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^9.1.2",
