@@ -1,0 +1,2 @@
+- a way to use vue with model class -- relation between view and model and view-model
+- a way to org components in a page
