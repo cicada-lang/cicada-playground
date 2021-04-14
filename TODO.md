@@ -1,3 +1,5 @@
-- studyroom-state -- `GitLabLibrary`
-- studyroom-state -- `GitHubLibrary`
-- studyroom-state -- files
+- [gitlab-client] -- `GitLabClient`
+- [github-client] -- `GitHubClient`
+- [model] -- `GitLabLibrary`
+- [model] -- `GitHubLibrary`
+- [studyroom-state] -- show file list

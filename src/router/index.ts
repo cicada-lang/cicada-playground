@@ -7,7 +7,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     component: () => import("@/views/studyroom"),
-  }
+  },
 ]
 
 const router = new VueRouter({

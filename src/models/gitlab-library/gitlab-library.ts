@@ -1,4 +1,5 @@
 import { Library, LibraryConfig, Module } from "@cicada-lang/cicada"
+import { GitLabClient } from "@/clients/gitlab-client"
 
 export class GitLabLibrary implements Library {
   config: LibraryConfig
