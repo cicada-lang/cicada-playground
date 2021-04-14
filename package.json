@@ -12,7 +12,8 @@
     "trailingComma": "es5"
   },
   "dependencies": {
-    "@cicada-lang/cicada": "^0.1.7",
+    "@cicada-lang/cicada": "^0.1.8",
+    "@cicada-lang/partech": "^0.1.2",
     "@tailwindcss/forms": "^0.3.2",
     "@tailwindcss/postcss7-compat": "^2.1.0",
     "@tailwindcss/typography": "^0.4.0",
