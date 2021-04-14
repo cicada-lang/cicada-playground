@@ -1,1 +1,3 @@
+- studyroom-state -- `GitLabLibrary`
+- studyroom-state -- `GitHubLibrary`
 - studyroom-state -- files

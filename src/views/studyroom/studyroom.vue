@@ -2,9 +2,6 @@
   <div class="flex flex-col items-start">
     <h1>Studyroom</h1>
     <pre>{{ state }}</pre>
-    <pre>{{ state.add1 }}</pre>
-    <button @click="state.inc()">inc</button>
-    <button @click="state.move()">move</button>
   </div>
 </template>
 
