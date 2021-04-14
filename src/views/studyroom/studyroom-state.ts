@@ -1,3 +1,5 @@
+import cic from "@cicada-lang/lib/main"
+
 export class StudyroomState {
   n: number
 

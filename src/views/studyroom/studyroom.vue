@@ -14,6 +14,6 @@ import { StudyroomState as State } from "./studyroom-state"
 
 @Component
 export default class Studyroom extends Vue {
-  state: State = new State
+  state: State = new State()
 }
 </script>
