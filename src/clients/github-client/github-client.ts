@@ -1,4 +1,3 @@
 import axios, { AxiosInstance } from "axios"
 
-export class GitHubClient {
-}
+export class GitHubClient {}
