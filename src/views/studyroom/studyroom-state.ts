@@ -1,4 +1,4 @@
-import cic from "@cicada-lang/lib/main"
+import { Library } from "@cicada-lang/cicada"
 
 export class StudyroomState {
   n: number

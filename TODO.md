@@ -1,2 +1,1 @@
-- studyroom-state -- try import cicada
 - studyroom-state -- files
