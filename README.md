@@ -1,4 +1,4 @@
-# cicada-playground
+# cicada-studyroom
 
 ## Project setup
 ```
