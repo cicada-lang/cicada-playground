@@ -14,6 +14,8 @@
   "dependencies": {
     "@cicada-lang/cicada": "^0.1.8",
     "@cicada-lang/partech": "^0.1.2",
+    "@gitbeaker/browser": "^28.3.0",
+    "@octokit/rest": "^18.5.2",
     "@tailwindcss/forms": "^0.3.2",
     "@tailwindcss/postcss7-compat": "^2.1.0",
     "@tailwindcss/typography": "^0.4.0",

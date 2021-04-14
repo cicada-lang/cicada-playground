@@ -1,5 +1,5 @@
 import { Library, LibraryConfig, Module } from "@cicada-lang/cicada"
-import { GitLabClient } from "@/clients/gitlab-client"
+import { Gitlab } from "@gitbeaker/browser"
 
 export class GitLabLibrary implements Library {
   config: LibraryConfig
