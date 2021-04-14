@@ -1,18 +1,26 @@
 <template>
   <div class="flex flex-col items-start">
     <h1>Studyroom</h1>
-    <pre>{{ state }}</pre>
+    <!-- <pre>{{ state }}</pre> -->
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 import { StudyroomState as State } from "./studyroom-state"
+import { GitLabLibrary } from "@/models/gitlab-library"
 
 @Component
 export default class Studyroom extends Vue {
-  state: State = new State()
+  // state: State = new State()
 
-  async mounted(): Promise<void> {}
+  async mounted(): Promise<void> {
+    const library = await GitLabLibrary.create({
+      host: "https://gitlab.com",
+      token: "soodzUTPvKGN-78m_nBM",
+      path: "cicada-lang/cicada",
+      root: "std",
+    })
+  }
 }
 </script>

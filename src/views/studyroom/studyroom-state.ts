@@ -4,6 +4,6 @@ export class StudyroomState {
   library: GitLabLibrary
 
   constructor() {
-    this.library = new GitLabLibrary()
+    throw new Error()
   }
 }
