@@ -1,9 +1,8 @@
-- [oauth] -- `GitLab`
-- [oauth] -- `GitHub`
-
-- [model] -- `GitLabLibrary.load`
 - [model] -- `GitLabLibrary.paths`
 - [model] -- `GitLabLibrary.load_all`
+
+- [oauth] -- `GitLab`
+- [oauth] -- `GitHub`
 
 - [model] -- `GitHubLibrary`
 - [model] -- `GitHubLibrary.load`

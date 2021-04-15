@@ -18,9 +18,12 @@ export default class Studyroom extends Vue {
     const library = await GitLabLibrary.create({
       host: "https://gitlab.com",
       token: "soodzUTPvKGN-78m_nBM",
-      path: "cicada-lang/cicada",
-      root: "std",
+      project_id: "cicada-lang/cicada",
+      project_dir: "std",
     })
+
+    const mod = await library.load("category-functor.snapshot.cic")
+    console.log(mod.output)
   }
 }
 </script>

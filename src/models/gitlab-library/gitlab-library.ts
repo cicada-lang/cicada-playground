@@ -35,12 +35,15 @@ export class GitLabLibrary implements Library {
     const { project_id, project_dir, host, token } = opts
 
     const requester = new Gitlab({ host, token })
-    const file = await requester.RepositoryFiles.show(
+
+    const file_path = `${project_dir}/library.json`
+    const file_entry = await requester.RepositoryFiles.show(
       project_id,
-      `${project_id}/library.json`,
+      file_path,
       "master"
     )
-    const text = Base64.decode(file.content)
+
+    const text = Base64.decode(file_entry.content)
     const config = new LibraryConfig(JSON.parse(text))
 
     return new GitLabLibrary({
@@ -58,13 +61,15 @@ export class GitLabLibrary implements Library {
       return cached
     }
 
-    const file = await this.requester.RepositoryFiles.show(
+    const file_path = `${this.project_dir}/${this.config.src}/${path}`
+    const file_entry = await this.requester.RepositoryFiles.show(
       this.project_id,
-      `${this.project_dir}/${path}`,
+      file_path,
       "master"
     )
-    const text = Base64.decode(file.content)
-     const stmts = Syntax.parse_stmts(text)
+
+    const text = Base64.decode(file_entry.content)
+    const stmts = Syntax.parse_stmts(text)
 
     const mod = new Module({ library: this })
     for (const stmt of stmts) {
