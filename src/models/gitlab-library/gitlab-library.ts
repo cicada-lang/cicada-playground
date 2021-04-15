@@ -80,11 +80,41 @@ export class GitLabLibrary implements Library {
     return mod
   }
 
-  paths(): Promise<Array<string>> {
-    throw new Error("TODO")
+  async paths(): Promise<Array<string>> {
+    const entries = (await this.requester.Repositories.tree(this.project_id, {
+      path: this.project_dir,
+      recursive: true,
+    })) as Record<string, any>[]
+
+    const paths: Array<string> = []
+    for (const entry of entries) {
+      if (entry.type === "blob") {
+        const prefix = normalize_dir(`${this.project_dir}/${this.config.src}`)
+        paths.push(normalize_file(entry.path.slice(prefix.length)))
+      }
+    }
+
+    return paths
   }
 
-  load_all(opts?: { verbose?: boolean }): Promise<Map<string, Module>> {
-    throw new Error("TODO")
+  async load_all(): Promise<Map<string, Module>> {
+    await Promise.all(
+      (await this.paths())
+        .filter((path) => path.endsWith(".cic"))
+        .map((path) => this.load(path))
+    )
+
+    return this.cached_mods
   }
+}
+
+function normalize_dir(dir: string): string {
+  if (dir.startsWith("/")) return normalize_dir(dir.slice(1))
+  if (dir.endsWith("/")) return normalize_dir(dir.slice(0, dir.length - 1))
+  else return dir
+}
+
+function normalize_file(file: string): string {
+  if (file.startsWith("/")) return normalize_dir(file.slice(1))
+  else return file
 }

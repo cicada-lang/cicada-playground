@@ -1,6 +1,3 @@
-- [model] -- `GitLabLibrary.paths`
-- [model] -- `GitLabLibrary.load_all`
-
 - [oauth] -- `GitLab`
 - [oauth] -- `GitHub`
 

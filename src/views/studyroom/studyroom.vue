@@ -22,8 +22,8 @@ export default class Studyroom extends Vue {
       project_dir: "std",
     })
 
-    const mod = await library.load("category-functor.snapshot.cic")
-    console.log(mod.output)
+    const mods = await library.load_all()
+    console.log(mods)
   }
 }
 </script>
