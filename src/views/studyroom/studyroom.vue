@@ -1,24 +1,22 @@
 <template>
   <div class="flex flex-col items-start">
     <h1>Studyroom</h1>
-    <div class="flex">
+    <!-- <div class="flex">
+         <ul>
+         <li v-for="file in state.files">
+         <button
+         :class="{ 'bg-gray-200': file === state.current_file }"
+         @click="state.set_current_file(file)"
+         >
+         {{ file }}
+         </button>
+         </li>
+         </ul>
 
-      <ul>
-        <li v-for="path in state.paths">
-          <button
-            :class="{ 'bg-gray-200': path === state.current_path }"
-            @click="state.current_path = path"
-          >
-            {{ path }}
-          </button>
-        </li>
-      </ul>
+         <textarea v-model="state.text"></textarea>
 
-      <textarea v-model="state.text"></textarea>
-
-      <pre>{{ state.output }}</pre>
-
-    </div>
+         <pre>{{ state.output }}</pre>
+         </div> -->
   </div>
 </template>
 
@@ -38,7 +36,7 @@ export default class Studyroom extends Vue {
       project_id: "cicada-lang/cicada",
       project_dir: "std",
     })
-    await this.state.init()
+    // await this.state.init()
   }
 }
 </script>
