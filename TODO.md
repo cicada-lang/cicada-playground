@@ -1,8 +1,13 @@
+- [oauth] -- `GitLab`
+- [oauth] -- `GitHub`
+
 - [model] -- `GitLabLibrary.load`
 - [model] -- `GitLabLibrary.paths`
 - [model] -- `GitLabLibrary.load_all`
 
 - [model] -- `GitHubLibrary`
-  - use "@octokit/rest"
+- [model] -- `GitHubLibrary.load`
+- [model] -- `GitHubLibrary.paths`
+- [model] -- `GitHubLibrary.load_all`
 
 - [studyroom-state] -- show file list
