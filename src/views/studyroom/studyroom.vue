@@ -1,7 +1,16 @@
 <template>
   <div class="flex flex-col items-start">
     <h1>Studyroom</h1>
-    <!-- <pre>{{ state }}</pre> -->
+    <ul>
+      <li v-for="path in state.paths">
+        <button
+          :class="{ 'bg-gray-200': path === state.current_path }"
+          @click="state.current_path = path"
+        >
+          {{ path }}
+        </button>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -12,18 +21,16 @@ import { GitLabLibrary } from "@/models/gitlab-library"
 
 @Component
 export default class Studyroom extends Vue {
-  // state: State = new State()
+  state: State = new State()
 
   async mounted(): Promise<void> {
-    const library = await GitLabLibrary.create({
+    this.state.library = await GitLabLibrary.create({
       host: "https://gitlab.com",
       token: "soodzUTPvKGN-78m_nBM",
       project_id: "cicada-lang/cicada",
       project_dir: "std",
     })
-
-    const mods = await library.load_all()
-    console.log(mods)
+    await this.state.init()
   }
 }
 </script>

@@ -88,7 +88,7 @@ export class GitLabLibrary implements Library {
 
     const paths: Array<string> = []
     for (const entry of entries) {
-      if (entry.type === "blob") {
+      if (entry.type === "blob" && entry.path.endsWith(".cic")) {
         const prefix = normalize_dir(`${this.project_dir}/${this.config.src}`)
         paths.push(normalize_file(entry.path.slice(prefix.length)))
       }
@@ -98,12 +98,7 @@ export class GitLabLibrary implements Library {
   }
 
   async load_all(): Promise<Map<string, Module>> {
-    await Promise.all(
-      (await this.paths())
-        .filter((path) => path.endsWith(".cic"))
-        .map((path) => this.load(path))
-    )
-
+    await Promise.all((await this.paths()).map((path) => this.load(path)))
     return this.cached_mods
   }
 }

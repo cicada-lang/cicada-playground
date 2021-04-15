@@ -1,3 +1,5 @@
+- [model] -- `GitLibrary` as interface
+
 - [model] -- `GitHubLibrary`
 - [model] -- `GitHubLibrary.load`
 - [model] -- `GitHubLibrary.paths`
