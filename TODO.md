@@ -1,3 +1,9 @@
+- [studyroom-state] -- text -- init
+- [studyroom-state] -- text -- commands
+- [studyroom-state] -- output -- commands
+- [studyroom] -- reporter
+- [studyroom] -- editor -- use codemirror
+
 - [model] -- `GitLibrary` as interface
 
 - [model] -- `GitHubLibrary`
@@ -7,6 +13,3 @@
 
 - [oauth] -- `GitLab`
 - [oauth] -- `GitHub`
-
-- [studyroom-state] -- show file list
-- [studyroom] -- editor

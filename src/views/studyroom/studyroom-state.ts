@@ -4,6 +4,8 @@ export class StudyroomState {
   library: null | GitLabLibrary = null
   paths: Array<string> = []
   current_path: null | string = null
+  text: string = "TODO"
+  output: string = "TODO"
 
   constructor(opts?: { library?: GitLabLibrary }) {
     if (opts?.library) {

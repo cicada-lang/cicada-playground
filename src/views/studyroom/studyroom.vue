@@ -1,16 +1,24 @@
 <template>
   <div class="flex flex-col items-start">
     <h1>Studyroom</h1>
-    <ul>
-      <li v-for="path in state.paths">
-        <button
-          :class="{ 'bg-gray-200': path === state.current_path }"
-          @click="state.current_path = path"
-        >
-          {{ path }}
-        </button>
-      </li>
-    </ul>
+    <div class="flex">
+
+      <ul>
+        <li v-for="path in state.paths">
+          <button
+            :class="{ 'bg-gray-200': path === state.current_path }"
+            @click="state.current_path = path"
+          >
+            {{ path }}
+          </button>
+        </li>
+      </ul>
+
+      <textarea v-model="state.text"></textarea>
+
+      <pre>{{ state.output }}</pre>
+
+    </div>
   </div>
 </template>
 
