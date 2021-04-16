@@ -2,7 +2,7 @@ import { GitLabLibrary } from "@/models/gitlab-library"
 
 export class StudyroomState {
   library: null | GitLabLibrary = null
-  reports: null | Map<string, string> = null
+  reports: null | Record<string, string> = null
   current_file: null | string = null
 
   constructor(opts?: { library?: GitLabLibrary }) {
