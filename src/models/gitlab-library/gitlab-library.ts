@@ -100,12 +100,14 @@ export class GitLabLibrary implements GitLibrary {
     return mod
   }
 
-  async paths(): Promise<Array<string>> {
-    return Object.keys(this.stage.files)
+  async fetch_files(): Promise<Map<string, string>> {
+    return new Map(Object.entries(this.stage.files))
   }
 
-  async load_all(): Promise<Map<string, Module>> {
-    await Promise.all((await this.paths()).map((path) => this.load(path)))
+  async load_mods(): Promise<Map<string, Module>> {
+    const files = await this.fetch_files()
+    const paths = Array.from(files.keys())
+    await Promise.all(paths.map((path) => this.load(path)))
     return this.cached_mods
   }
 

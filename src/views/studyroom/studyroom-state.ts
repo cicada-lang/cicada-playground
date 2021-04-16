@@ -13,7 +13,8 @@ export class StudyroomState {
 
   async init(): Promise<void> {
     if (this.library) {
-      const paths = await this.library.paths()
+      const files = await this.library.fetch_files()
+      const paths = Array.from(files.keys())
       this.current_path = paths[0] || null
     }
   }
