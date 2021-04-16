@@ -2,6 +2,64 @@ import { Library, LibraryConfig, Module, Syntax } from "@cicada-lang/cicada"
 import { Gitlab } from "@gitbeaker/browser"
 import { Base64 } from "js-base64"
 
+class Stage {
+  files: Map<string, string>
+
+  constructor(opts?: { files?: Map<string, string> }) {
+    this.files = opts?.files || new Map()
+  }
+
+  static from_checkout(checkout: Checkout): Stage {
+    return new Stage({
+      files: new Map([...checkout.files]),
+    })
+  }
+}
+
+class Checkout {
+  files: Map<string, string>
+
+  constructor(opts?: { files?: Map<string, string> }) {
+    this.files = opts?.files || new Map()
+  }
+
+  static async create(opts: {
+    requester: InstanceType<typeof Gitlab>
+    project_id: string | number
+    project_dir: string
+    config: LibraryConfig
+  }): Promise<Checkout> {
+    const { requester, project_id, project_dir, config } = opts
+
+    const entries = (await requester.Repositories.tree(project_id, {
+      path: project_dir,
+      recursive: true,
+    })) as Record<string, any>[]
+
+    const files = new Map()
+
+    for (const entry of entries) {
+      if (entry.type === "blob" && entry.path.endsWith(".cic")) {
+        const prefix = normalize_dir(`${project_dir}/${config.src}`)
+        const path = normalize_file(entry.path.slice(prefix.length))
+
+        const file_path = `${project_dir}/${config.src}/${path}`
+        const file_entry = await requester.RepositoryFiles.show(
+          project_id,
+          file_path,
+          "master"
+        )
+
+        const text = Base64.decode(file_entry.content)
+
+        files.set(path, text)
+      }
+    }
+
+    return new Checkout({ files })
+  }
+}
+
 export class GitLabLibrary implements Library {
   requester: InstanceType<typeof Gitlab>
   config: LibraryConfig
@@ -9,6 +67,8 @@ export class GitLabLibrary implements Library {
   host: string
   project_id: string | number
   project_dir: string
+  checkout: Checkout
+  stage: Stage
 
   constructor(opts: {
     requester: InstanceType<typeof Gitlab>
@@ -17,6 +77,8 @@ export class GitLabLibrary implements Library {
     host: string
     project_id: string | number
     project_dir: string
+    checkout: Checkout
+    stage: Stage
   }) {
     this.requester = opts.requester
     this.config = opts.config
@@ -24,6 +86,8 @@ export class GitLabLibrary implements Library {
     this.host = opts.host
     this.project_id = opts.project_id
     this.project_dir = opts.project_dir
+    this.checkout = opts.checkout
+    this.stage = opts.stage
   }
 
   static async create(opts: {
@@ -46,12 +110,23 @@ export class GitLabLibrary implements Library {
     const text = Base64.decode(file_entry.content)
     const config = new LibraryConfig(JSON.parse(text))
 
+    const checkout = await Checkout.create({
+      requester,
+      project_id,
+      project_dir,
+      config,
+    })
+
+    const stage = Stage.from_checkout(checkout)
+
     return new GitLabLibrary({
       requester,
       config,
       host,
       project_id,
       project_dir,
+      checkout,
+      stage,
     })
   }
 
@@ -61,14 +136,11 @@ export class GitLabLibrary implements Library {
       return cached
     }
 
-    const file_path = `${this.project_dir}/${this.config.src}/${path}`
-    const file_entry = await this.requester.RepositoryFiles.show(
-      this.project_id,
-      file_path,
-      "master"
-    )
+    const text = this.stage.files.get(path)
+    if (!text) {
+      throw new Error(`Unknown path: ${path}`)
+    }
 
-    const text = Base64.decode(file_entry.content)
     const stmts = Syntax.parse_stmts(text)
 
     const mod = new Module({ library: this })
@@ -81,20 +153,7 @@ export class GitLabLibrary implements Library {
   }
 
   async paths(): Promise<Array<string>> {
-    const entries = (await this.requester.Repositories.tree(this.project_id, {
-      path: this.project_dir,
-      recursive: true,
-    })) as Record<string, any>[]
-
-    const paths: Array<string> = []
-    for (const entry of entries) {
-      if (entry.type === "blob" && entry.path.endsWith(".cic")) {
-        const prefix = normalize_dir(`${this.project_dir}/${this.config.src}`)
-        paths.push(normalize_file(entry.path.slice(prefix.length)))
-      }
-    }
-
-    return paths
+    return Array.from(this.stage.files.keys())
   }
 
   async load_all(): Promise<Map<string, Module>> {

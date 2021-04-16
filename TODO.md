@@ -1,6 +1,3 @@
-- [model] -- `GitHubLibrary.checkout`
-- [model] -- `GitHubLibrary.stage`
-
 - [model] -- `GitLibrary` as interface
 
 - [studyroom-state] -- text -- init
