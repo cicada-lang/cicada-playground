@@ -1,8 +1,6 @@
-- studyroom-reporter.vue
-
 - [model] -- `GitLibrary` as interface
 
-- [studyroom] -- editor -- use codemirror
+- [studyroom-editor] -- use codemirror
 
 - [model] -- `GitHubLibrary`
 - [model] -- `GitHubLibrary.load`

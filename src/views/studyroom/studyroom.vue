@@ -4,6 +4,7 @@
     <div v-if="state.library" class="flex">
       <StudyroomFileList :state="state" />
       <StudyroomEditor :state="state" />
+      <StudyroomReporter :state="state" />
       <pre>{{ state.current_output }}</pre>
     </div>
   </div>
@@ -15,8 +16,9 @@ import { StudyroomState as State } from "./studyroom-state"
 import { GitLabLibrary } from "@/models/gitlab-library"
 import StudyroomFileList from "./studyroom-file-list.vue"
 import StudyroomEditor from "./studyroom-editor.vue"
+import StudyroomReporter from "./studyroom-reporter.vue"
 
-@Component({ components: { StudyroomFileList, StudyroomEditor }})
+@Component({ components: { StudyroomFileList, StudyroomEditor, StudyroomReporter }})
 export default class Studyroom extends Vue {
   state: State = new State()
 
