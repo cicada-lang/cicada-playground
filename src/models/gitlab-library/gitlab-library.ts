@@ -1,10 +1,11 @@
-import { Library, LibraryConfig, Module, Syntax } from "@cicada-lang/cicada"
+import { LibraryConfig, Module, Syntax } from "@cicada-lang/cicada"
+import { GitLibrary } from "@/models/git-library"
 import { Gitlab } from "@gitbeaker/browser"
 import { Base64 } from "js-base64"
 import { Stage } from "./stage"
 import { Checkout } from "./checkout"
 
-export class GitLabLibrary implements Library {
+export class GitLabLibrary implements GitLibrary {
   requester: InstanceType<typeof Gitlab>
   config: LibraryConfig
   cached_mods: Map<string, Module>
