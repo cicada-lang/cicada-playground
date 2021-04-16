@@ -40,8 +40,9 @@ export class GitLabLibrary implements GitLibrary {
     token: string
     project_id: string | number
     project_dir: string
+    stage?: Stage
   }): Promise<GitLabLibrary> {
-    const { project_id, project_dir, host, token } = opts
+    const { host, token, project_id, project_dir, stage } = opts
 
     const requester = new Gitlab({ host, token })
 
@@ -62,8 +63,6 @@ export class GitLabLibrary implements GitLibrary {
       config,
     })
 
-    const stage = Stage.from_checkout(checkout)
-
     return new GitLabLibrary({
       requester,
       config,
@@ -71,7 +70,7 @@ export class GitLabLibrary implements GitLibrary {
       project_id,
       project_dir,
       checkout,
-      stage,
+      stage: stage || Stage.from_checkout(checkout),
     })
   }
 
