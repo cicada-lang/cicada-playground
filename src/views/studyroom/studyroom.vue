@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-start">
     <h1>Studyroom</h1>
-    <div class="flex">
+    <div v-if="state.library" class="flex">
       <ul>
         <li v-for="(text, file) in state.library.stage.files">
           <button
