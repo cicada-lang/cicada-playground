@@ -1,5 +1,5 @@
-import { LibraryConfig, Module, Syntax } from "@cicada-lang/cicada"
 import { GitLibrary } from "@/models/git-library"
+import { LibraryConfig, Module, Syntax } from "@cicada-lang/cicada"
 import { Gitlab } from "@gitbeaker/browser"
 import { Base64 } from "js-base64"
 import { Stage } from "./stage"
@@ -108,5 +108,9 @@ export class GitLabLibrary implements GitLibrary {
   async load_all(): Promise<Map<string, Module>> {
     await Promise.all((await this.paths()).map((path) => this.load(path)))
     return this.cached_mods
+  }
+
+  async commit(): Promise<void> {
+    // TODO
   }
 }
