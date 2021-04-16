@@ -1,12 +1,12 @@
 <template>
   <div v-if="state.library" class="flex">
     <ul>
-      <li v-for="(text, file) in state.library.stage.files">
+      <li v-for="(text, path) in state.library.stage.files">
         <button
-          :class="{ 'bg-gray-200': file === state.current_file }"
-          @click="state.current_file = file; state.run()"
+          :class="{ 'bg-gray-200': path === state.current_path }"
+          @click="state.current_path = path; state.run()"
         >
-          {{ file }}
+          {{ path }}
         </button>
       </li>
     </ul>

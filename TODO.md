@@ -1,7 +1,5 @@
 - [model] -- `GitLibrary` as interface
 
-ambr current_file current_path
-
 - [studyroom-editor] -- use codemirror
 
 - [model] -- `GitHubLibrary`
