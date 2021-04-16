@@ -28,12 +28,14 @@ export default class Studyroom extends Vue {
   state: State = new State()
 
   async mounted(): Promise<void> {
-    this.state.library = await GitLabLibrary.create({
+    const opts = {
       host: "https://gitlab.com",
       token: "soodzUTPvKGN-78m_nBM",
       project_id: "cicada-lang/cicada",
       project_dir: "std",
-    })
+    }
+
+    this.state.library = await GitLabLibrary.create(opts)
     await this.state.init()
   }
 }
