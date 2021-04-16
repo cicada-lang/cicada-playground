@@ -1,11 +1,7 @@
+- studyroom-editor.vue
+- studyroom-reporter.vue
+
 - [model] -- `GitLibrary` as interface
-
-- [studyroom-state] -- `current_output` -- commands
-
-- [studyroom] -- reporter
-
-- [studyroom] -- extract component -- studyroom-editor
-- [studyroom] -- extract component -- studyroom-reporter
 
 - [studyroom] -- editor -- use codemirror
 

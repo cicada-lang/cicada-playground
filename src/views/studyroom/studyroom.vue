@@ -2,17 +2,7 @@
   <div class="flex flex-col items-start">
     <h1>Studyroom</h1>
     <div v-if="state.library" class="flex">
-      <ul>
-        <li v-for="(text, file) in state.library.stage.files">
-          <button
-            :class="{ 'bg-gray-200': file === state.current_file }"
-            @click="state.current_file = file; state.run()"
-          >
-            {{ file }}
-          </button>
-        </li>
-      </ul>
-
+      <StudyroomFileList :state="state" />
       <textarea v-model="state.current_text"></textarea>
       <pre>{{ state.current_output }}</pre>
     </div>
@@ -23,8 +13,9 @@
 import { Component, Vue } from "vue-property-decorator"
 import { StudyroomState as State } from "./studyroom-state"
 import { GitLabLibrary } from "@/models/gitlab-library"
+import StudyroomFileList from "./studyroom-file-list.vue"
 
-@Component
+@Component({ components: { StudyroomFileList }})
 export default class Studyroom extends Vue {
   state: State = new State()
 

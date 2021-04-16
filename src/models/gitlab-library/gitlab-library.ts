@@ -36,25 +36,27 @@ class Checkout {
       recursive: true,
     })) as Record<string, any>[]
 
-    const files: Record<string, string> = {}
-
-    for (const entry of entries) {
-      if (entry.type === "blob" && entry.path.endsWith(".cic")) {
+    const paths: Array<string> = entries
+      .filter((entry) => entry.type === "blob" && entry.path.endsWith(".cic"))
+      .map((entry) => {
         const prefix = normalize_dir(`${project_dir}/${config.src}`)
         const path = normalize_file(entry.path.slice(prefix.length))
+        return path
+      })
 
+    const files = Object.fromEntries(
+      await Promise.all((paths).map(async (path) => {
         const file_path = `${project_dir}/${config.src}/${path}`
         const file_entry = await requester.RepositoryFiles.show(
           project_id,
           file_path,
           "master"
         )
-
         const text = Base64.decode(file_entry.content)
+        return [path, text]
+      }))
+    )
 
-        files[path] = text
-      }
-    }
 
     return new Checkout({ files })
   }
