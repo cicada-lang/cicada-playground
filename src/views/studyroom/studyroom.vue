@@ -6,7 +6,7 @@
         <li v-for="(text, file) in state.library.stage.files">
           <button
             :class="{ 'bg-gray-200': file === state.current_file }"
-            @click="state.current_file = file"
+            @click="state.current_file = file; state.run()"
           >
             {{ file }}
           </button>
@@ -14,6 +14,7 @@
       </ul>
 
       <textarea v-model="state.current_text"></textarea>
+      <pre>{{ state.current_output }}</pre>
     </div>
   </div>
 </template>

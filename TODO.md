@@ -1,6 +1,6 @@
 - [model] -- `GitLibrary` as interface
 
-- [studyroom-state] -- output -- commands
+- [studyroom-state] -- `current_output` -- commands
 
 - [studyroom] -- reporter
 
