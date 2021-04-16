@@ -4,7 +4,6 @@ export class StudyroomState {
   library: null | GitLabLibrary = null
   reports: null | Map<string, string> = null
   current_file: null | string = null
-  text: null | string = null
 
   constructor(opts?: { library?: GitLabLibrary }) {
     if (opts?.library) {
@@ -14,16 +13,14 @@ export class StudyroomState {
 
   async init(): Promise<void> {
     if (this.library) {
-      const mods = await this.library.load_all()
-      for (const [file, ] of mods) {
-
-      }
       const paths = await this.library.paths()
       this.current_file = paths[0] || null
     }
   }
 
-  // set_current_file(file: string): void {
-  //   this.current_file = file
-  // }
+  get current_text(): null | string {
+    if (!this.current_file) return null
+    if (!this.library) return null
+    return this.library.stage.files[this.current_file] || null
+  }
 }

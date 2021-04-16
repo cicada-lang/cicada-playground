@@ -3,24 +3,24 @@ import { Gitlab } from "@gitbeaker/browser"
 import { Base64 } from "js-base64"
 
 class Stage {
-  files: Map<string, string>
+  files: Record<string, string>
 
-  constructor(opts?: { files?: Map<string, string> }) {
-    this.files = opts?.files || new Map()
+  constructor(opts?: { files?: Record<string, string> }) {
+    this.files = opts?.files || {}
   }
 
   static from_checkout(checkout: Checkout): Stage {
     return new Stage({
-      files: new Map([...checkout.files]),
+      files: { ...checkout.files },
     })
   }
 }
 
 class Checkout {
-  files: Map<string, string>
+  files: Record<string, string>
 
-  constructor(opts?: { files?: Map<string, string> }) {
-    this.files = opts?.files || new Map()
+  constructor(opts?: { files?: Record<string, string> }) {
+    this.files = opts?.files || {}
   }
 
   static async create(opts: {
@@ -36,7 +36,7 @@ class Checkout {
       recursive: true,
     })) as Record<string, any>[]
 
-    const files = new Map()
+    const files: Record<string, string> = {}
 
     for (const entry of entries) {
       if (entry.type === "blob" && entry.path.endsWith(".cic")) {
@@ -52,7 +52,7 @@ class Checkout {
 
         const text = Base64.decode(file_entry.content)
 
-        files.set(path, text)
+        files[path] = text
       }
     }
 
@@ -136,7 +136,7 @@ export class GitLabLibrary implements Library {
       return cached
     }
 
-    const text = this.stage.files.get(path)
+    const text = this.stage.files[path]
     if (!text) {
       throw new Error(`Unknown path: ${path}`)
     }
@@ -153,7 +153,7 @@ export class GitLabLibrary implements Library {
   }
 
   async paths(): Promise<Array<string>> {
-    return Array.from(this.stage.files.keys())
+    return Object.keys(this.stage.files)
   }
 
   async load_all(): Promise<Map<string, Module>> {

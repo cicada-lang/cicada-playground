@@ -1,13 +1,12 @@
 - [model] -- `GitLibrary` as interface
 
-- [studyroom-state] -- text -- init
-- [studyroom-state] -- text -- commands
+- [studyroom-state] -- output -- commands
+
+- [studyroom] -- reporter
 
 - [studyroom] -- extract component -- studyroom-editor
 - [studyroom] -- extract component -- studyroom-reporter
 
-- [studyroom-state] -- output -- commands
-- [studyroom] -- reporter
 - [studyroom] -- editor -- use codemirror
 
 - [model] -- `GitHubLibrary`
