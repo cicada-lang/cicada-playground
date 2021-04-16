@@ -132,7 +132,11 @@ export class GitLabLibrary implements Library {
     })
   }
 
-  async load(path: string): Promise<Module> {
+  async load(path: string, opts?: { force?: boolean }): Promise<Module> {
+    if (opts?.force) {
+      this.cached_mods.delete(path)
+    }
+
     const cached = this.cached_mods.get(path)
     if (cached) {
       return cached

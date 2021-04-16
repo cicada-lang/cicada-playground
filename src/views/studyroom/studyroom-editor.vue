@@ -1,5 +1,5 @@
 <template>
-  <textarea v-model="state.current_text"></textarea>
+  <textarea v-model="state.current_text" @change="state.run()"></textarea>
 </template>
 
 <script lang="ts">

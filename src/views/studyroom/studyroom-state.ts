@@ -3,7 +3,7 @@ import { GitLabLibrary } from "@/models/gitlab-library"
 export class StudyroomState {
   library: null | GitLabLibrary = null
   current_file: null | string = null
-  current_output: null | string = null
+  current_report: null | { output?: string; error?: Error } = null
 
   constructor(opts?: { library?: GitLabLibrary }) {
     if (opts?.library) {
@@ -24,11 +24,22 @@ export class StudyroomState {
     return this.library.stage.files[this.current_file] || null
   }
 
+  set current_text(text: null | string) {
+    if (!text) return
+    if (!this.library) return
+    if (!this.current_file) return
+    this.library.stage.files[this.current_file] = text
+  }
+
   async run(): Promise<void> {
     if (!this.library) return
     if (!this.current_file) return
 
-    const mod = await this.library.load(this.current_file)
-    this.current_output = mod.output
+    try {
+      const mod = await this.library.load(this.current_file, { force: true })
+      this.current_report = { output: mod.output }
+    } catch (error) {
+      this.current_report = { error }
+    }
   }
 }
