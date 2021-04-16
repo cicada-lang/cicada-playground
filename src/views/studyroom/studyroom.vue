@@ -3,7 +3,7 @@
     <h1>Studyroom</h1>
     <div v-if="state.library" class="flex">
       <StudyroomFileList :state="state" />
-      <textarea v-model="state.current_text"></textarea>
+      <StudyroomEditor :state="state" />
       <pre>{{ state.current_output }}</pre>
     </div>
   </div>
@@ -14,8 +14,9 @@ import { Component, Vue } from "vue-property-decorator"
 import { StudyroomState as State } from "./studyroom-state"
 import { GitLabLibrary } from "@/models/gitlab-library"
 import StudyroomFileList from "./studyroom-file-list.vue"
+import StudyroomEditor from "./studyroom-editor.vue"
 
-@Component({ components: { StudyroomFileList }})
+@Component({ components: { StudyroomFileList, StudyroomEditor }})
 export default class Studyroom extends Vue {
   state: State = new State()
 

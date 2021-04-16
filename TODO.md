@@ -1,4 +1,3 @@
-- studyroom-editor.vue
 - studyroom-reporter.vue
 
 - [model] -- `GitLibrary` as interface
