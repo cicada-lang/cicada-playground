@@ -12,5 +12,7 @@
 - [oauth] -- `GitLab`
 - [oauth] -- `GitHub`
 
+- [studyroom] -- load project info from url query
+
 - [model] -- `GitLabLibrary.commit`
 - [model] -- `GitHubLibrary.commit`
