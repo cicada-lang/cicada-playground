@@ -18,7 +18,9 @@ import StudyroomFileList from "./studyroom-file-list.vue"
 import StudyroomEditor from "./studyroom-editor.vue"
 import StudyroomReporter from "./studyroom-reporter.vue"
 
-@Component({ components: { StudyroomFileList, StudyroomEditor, StudyroomReporter }})
+@Component({
+  components: { StudyroomFileList, StudyroomEditor, StudyroomReporter },
+})
 export default class Studyroom extends Vue {
   state: State = new State()
 
