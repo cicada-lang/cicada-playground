@@ -30,7 +30,7 @@ import { Component, Vue, Prop } from "vue-property-decorator"
 import { EntranceState as State } from "./entrance-state"
 
 @Component
-export default class Entrance extends Vue {
+export default class EntranceLibraryList extends Vue {
   state = new State
 
   enter(): void {

@@ -34,7 +34,7 @@ export class GitHubLibrary implements GitLibrary {
   }
 
   static async create(
-    project_id: string | { owner: string; repo: string },
+    library_id: string | { owner: string; repo: string },
     opts: {
       token?: string
       dir?: string
@@ -44,12 +44,12 @@ export class GitHubLibrary implements GitLibrary {
     const { token, stage } = opts
     const dir = opts.dir || ""
     const { owner, repo } =
-      typeof project_id === "string"
+      typeof library_id === "string"
         ? {
-            owner: project_id.split("/")[0],
-            repo: project_id.split("/")[1],
+            owner: library_id.split("/")[0],
+            repo: library_id.split("/")[1],
           }
-        : project_id
+        : library_id
 
     const requester = new Octokit({ auth: token })
 

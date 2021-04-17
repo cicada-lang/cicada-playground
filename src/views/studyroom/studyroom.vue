@@ -28,7 +28,7 @@ import StudyroomReporter from "./studyroom-reporter.vue"
 })
 export default class Studyroom extends Vue {
   @Prop() servant!: string
-  @Prop() project_id!: string
+  @Prop() library_id!: string
 
   state = new State()
 
@@ -38,11 +38,11 @@ export default class Studyroom extends Vue {
 
   async load_git_library(): Promise<void> {
     if (this.servant === "github") {
-      this.state.library = await GitHubLibrary.create(this.project_id)
+      this.state.library = await GitHubLibrary.create(this.library_id)
     }
 
     if (this.servant === "gitlab") {
-      this.state.library = await GitLabLibrary.create(this.project_id)
+      this.state.library = await GitLabLibrary.create(this.library_id)
     }
 
     await this.state.init()

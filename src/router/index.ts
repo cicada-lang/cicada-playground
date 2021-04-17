@@ -17,7 +17,7 @@ const routes: Array<RouteConfig> = [
     component: () => import("@/views/studyroom"),
     props: (route) => ({
       servant: route.query.s,
-      project_id: route.query.p,
+      library_id: route.query.p,
     }),
   },
 ]
