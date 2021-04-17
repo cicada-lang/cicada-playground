@@ -3,7 +3,7 @@
     <h1>Studyroom</h1>
 
     <button>
-      <router-link :to="{ path: '/entrance' }"> Back </router-link>
+      <router-link :to="{ path: '/entrance' }">Back</router-link>
     </button>
 
     <div v-if="state.library" class="flex">
@@ -12,7 +12,7 @@
       <studyroom-reporter :state="state" />
       <pre>{{ state.current_output }}</pre>
     </div>
-    <div v-else>Loading</div>
+    <div v-else>Loading...</div>
   </div>
 </template>
 
