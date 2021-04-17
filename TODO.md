@@ -12,7 +12,7 @@
 - [oauth] -- `GitLab`
 - [oauth] -- `GitHub`
 
-- [studyroom-toolbox] -- save button
-
 - [model] -- `GitLabLibrary.commit`
 - [model] -- `GitHubLibrary.commit`
+
+- [studyroom-toolbox] -- save button
