@@ -86,8 +86,26 @@ export class GitHubLibrary implements GitLibrary {
     return await this.load(path)
   }
 
-  async load(path: string, opts?: { force?: boolean }): Promise<Module> {
-    throw new Error("TODO")
+  async load(path: string): Promise<Module> {
+    const cached = this.cached_mods.get(path)
+    if (cached) {
+      return cached
+    }
+
+    const text = this.stage.files[path]
+    if (!text) {
+      throw new Error(`Unknown path: ${path}`)
+    }
+
+    const stmts = Syntax.parse_stmts(text)
+
+    const mod = new Module({ library: this })
+    for (const stmt of stmts) {
+      await stmt.execute(mod)
+    }
+
+    this.cached_mods.set(path, mod)
+    return mod
   }
 
   async fetch_files(): Promise<Map<string, string>> {

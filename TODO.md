@@ -1,4 +1,4 @@
-- [model] -- `GitHubLibrary.load`
+- [model] -- `GitHubLibrary.create_checkout`
 
 - [studyroom-file-list] -- better view
 - [studyroom-reporter] -- better view for `Trace`
