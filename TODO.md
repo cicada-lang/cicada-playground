@@ -1,4 +1,3 @@
-- [entrance] -- jump to studyroom
 - [entrance-library-list] -- list some existing library
 
 - [studyroom-file-list] -- better view

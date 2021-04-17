@@ -6,6 +6,14 @@ Vue.use(VueRouter)
 const routes: Array<RouteConfig> = [
   {
     path: "/",
+    redirect: "/entrance",
+  },
+  {
+    path: "/entrance",
+    component: () => import("@/views/entrance"),
+  },
+  {
+    path: "/studyroom",
     component: () => import("@/views/studyroom"),
     props: (route) => ({
       servant: route.query.s,
