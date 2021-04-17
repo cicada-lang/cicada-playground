@@ -1,8 +1,11 @@
 - [entrance-library-list] -- list some existing library
 
-- [studyroom-file-list] -- better view
-- [studyroom-reporter] -- better view for `Trace`
-- [studyroom-reporter] -- better view for `ParsingError`
+- [entrance] -- import style
+- [entrance-library-list] -- import style
+
+- [studyroom-file-list] -- import style
+- [studyroom-reporter] -- import style for `Trace`
+- [studyroom-reporter] -- import style for `ParsingError`
 
 - [studyroom-editor] -- use codemirror
 
