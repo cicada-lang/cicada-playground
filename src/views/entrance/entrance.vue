@@ -25,8 +25,8 @@ import { Component, Vue, Prop } from "vue-property-decorator"
 
 @Component
 export default class Entrance extends Vue {
-  servant: string = ""
-  project_id: string = ""
+  servant: null | string = null
+  project_id: null | string = null
 
   enter(): void {
     this.$router.push({
