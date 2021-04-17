@@ -167,17 +167,35 @@ async function create_checkout(opts: {
     throw new Error(`Expecting src entry: ${project_dir}/${config.src}`)
   }
 
-  const files = {}
-
   const { data: root } = await requester.rest.git.getTree({
     owner,
     repo,
     tree_sha: src_entry.sha,
+    recursive: "true",
   })
 
-  // TODO
-
-  console.log(root)
+  const files = Object.fromEntries(
+    await Promise.all(
+      root.tree
+        .filter(
+          (entry) => entry.type === "blob" && entry.path?.endsWith(".cic")
+        )
+        .map(async (entry) => {
+          const path = `${project_dir}/${config.src}/${entry.path}`
+          const { data } = await requester.rest.repos.getContent({
+            owner,
+            repo,
+            path,
+          })
+          if ("content" in data) {
+            const text = Base64.decode(data.content)
+            return [entry.path, text]
+          } else {
+            throw new Error(`git blob should have content`)
+          }
+        })
+    )
+  )
 
   return new Checkout({ files })
 }

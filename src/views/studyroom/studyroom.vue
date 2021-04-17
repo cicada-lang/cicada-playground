@@ -31,7 +31,7 @@ export default class Studyroom extends Vue {
 
   async mounted(): Promise<void> {
     await this.load_github_library()
-    await this.load_library()
+    // await this.load_library()
   }
 
   async load_github_library(): Promise<void> {
@@ -42,8 +42,8 @@ export default class Studyroom extends Vue {
       project_dir: "std",
     }
 
-    const library = await GitHubLibrary.create(opts)
-    // console.log(library)
+    this.state.library = await GitHubLibrary.create(opts)
+    await this.state.init()
   }
 
   async load_library(): Promise<void> {

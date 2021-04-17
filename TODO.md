@@ -1,5 +1,3 @@
-- [model] -- `GitHubLibrary` -- `create_checkout`
-
 - [model] normalize `GitHubLibrary` and `GitLabLibrary` -- argument opts
 
 - [studyroom-file-list] -- better view
