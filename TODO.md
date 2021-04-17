@@ -1,4 +1,3 @@
-- [studyroom] -- load project info from url query
 - [entrance] -- jump to studyroom
 - [entrance-library-list] -- list some existing library
 

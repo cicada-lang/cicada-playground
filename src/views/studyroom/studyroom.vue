@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator"
+import { Component, Vue, Prop } from "vue-property-decorator"
 import { StudyroomState as State } from "./studyroom-state"
 import { GitLabLibrary } from "@/models/gitlab-library"
 import { GitHubLibrary } from "@/models/github-library"
@@ -27,20 +27,24 @@ import StudyroomReporter from "./studyroom-reporter.vue"
   },
 })
 export default class Studyroom extends Vue {
+  @Prop() servant!: string
+  @Prop() project_id!: string
+
   state: State = new State()
 
   async mounted(): Promise<void> {
-    await this.load_github_library()
-    // await this.load_gitlab_library()
+    await this.load_git_library()
   }
 
-  async load_github_library(): Promise<void> {
-    this.state.library = await GitHubLibrary.create("cicada-lang/cicada-stdlib")
-    await this.state.init()
-  }
+  async load_git_library(): Promise<void> {
+    if (this.servant === "github") {
+      this.state.library = await GitHubLibrary.create(this.project_id)
+    }
 
-  async load_gitlab_library(): Promise<void> {
-    this.state.library = await GitLabLibrary.create("cicada-lang/cicada-stdlib")
+    if (this.servant === "gitlab") {
+      this.state.library = await GitLabLibrary.create(this.project_id)
+    }
+
     await this.state.init()
   }
 }
