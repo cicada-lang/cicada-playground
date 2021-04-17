@@ -6,7 +6,7 @@ import { Base64 } from "js-base64"
 export class GitHubLibrary implements GitLibrary {
   requester: Octokit
   config: LibraryConfig
-  cached_mods?: Map<string, Module>
+  cached_mods: Map<string, Module>
 
   constructor(opts: {
     requester: Octokit
@@ -79,7 +79,10 @@ export class GitHubLibrary implements GitLibrary {
   }
 
   async load_mods(): Promise<Map<string, Module>> {
-    throw new Error("TODO")
+    const files = await this.fetch_files()
+    const paths = Array.from(files.keys())
+    await Promise.all(paths.map((path) => this.load(path)))
+    return this.cached_mods
   }
 
   async commit(): Promise<void> {

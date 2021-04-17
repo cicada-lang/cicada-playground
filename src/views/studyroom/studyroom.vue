@@ -20,7 +20,11 @@ import StudyroomEditor from "./studyroom-editor.vue"
 import StudyroomReporter from "./studyroom-reporter.vue"
 
 @Component({
-  components: { StudyroomFileList, StudyroomEditor, StudyroomReporter },
+  components: {
+    StudyroomFileList,
+    StudyroomEditor,
+    StudyroomReporter,
+  },
 })
 export default class Studyroom extends Vue {
   state: State = new State()
@@ -39,7 +43,7 @@ export default class Studyroom extends Vue {
     }
 
     const library = await GitHubLibrary.create(opts)
-    // console.log(library)
+    console.log(library)
   }
 
   async load_library(): Promise<void> {
