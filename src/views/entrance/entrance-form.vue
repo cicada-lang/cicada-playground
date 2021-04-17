@@ -1,6 +1,5 @@
 <template>
   <form @submit.prevent="enter">
-
     <p>
       <label for="servant">Servant:</label>
       <input required type="text" id="servant" v-model="state.servant" />
