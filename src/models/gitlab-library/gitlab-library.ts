@@ -36,13 +36,15 @@ export class GitLabLibrary implements GitLibrary {
   static async create(
     project_id: string | number,
     opts: {
-      host: string
-      token: string
-      dir: string
+      host?: string
+      token?: string
+      dir?: string
       stage?: Stage
-    }
+    } = {}
   ): Promise<GitLabLibrary> {
-    const { host, token, dir, stage } = opts
+    const host = opts.host || "https://gitlab.com"
+    const dir = opts.dir || ""
+    const { token, stage } = opts
 
     const requester = new Gitlab({ host, token })
 
@@ -133,7 +135,7 @@ async function create_config(opts: {
 
   const data = await requester.RepositoryFiles.show(
     project_id,
-    `${dir}/library.json`,
+    normalize_file(`${dir}/library.json`),
     "master"
   )
 
@@ -166,10 +168,9 @@ async function create_checkout(opts: {
   const files = Object.fromEntries(
     await Promise.all(
       paths.map(async (path) => {
-        const file_path = `${dir}/${config.src}/${path}`
         const file_entry = await requester.RepositoryFiles.show(
           project_id,
-          file_path,
+          normalize_file(`${dir}/${config.src}/${path}`),
           "master"
         )
         const text = Base64.decode(file_entry.content)
