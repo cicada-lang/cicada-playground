@@ -7,8 +7,6 @@
 - [studyroom-reporter] -- improve style for `Trace`
 - [studyroom-reporter] -- improve style for `ParsingError`
 
-- [studyroom-editor] -- use codemirror
-
 - [oauth] -- `GitLab`
 - [oauth] -- `GitHub`
 
@@ -16,3 +14,7 @@
 - [model] -- `GitHubLibrary.commit`
 
 - [studyroom-toolbox] -- save button
+
+- [studyroom-file-list] -- create file & delete file
+
+- [studyroom-editor] -- use codemirror
