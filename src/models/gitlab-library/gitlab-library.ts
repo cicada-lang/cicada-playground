@@ -167,7 +167,6 @@ export class GitLabLibrary implements GitLibrary {
   }
 }
 
-
 function normalize_dir(dir: string): string {
   if (dir.startsWith("/")) return normalize_dir(dir.slice(1))
   if (dir.endsWith("/")) return normalize_dir(dir.slice(0, dir.length - 1))
