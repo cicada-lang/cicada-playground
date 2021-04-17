@@ -9,7 +9,7 @@ export class GitHubLibrary implements GitLibrary {
   cached_mods: Map<string, Module>
   owner: string
   repo: string
-  project_dir: string
+  dir: string
   checkout: Checkout
   stage: Stage
 
@@ -19,7 +19,7 @@ export class GitHubLibrary implements GitLibrary {
     cached_mods?: Map<string, Module>
     owner: string
     repo: string
-    project_dir: string
+    dir: string
     checkout: Checkout
     stage: Stage
   }) {
@@ -28,34 +28,43 @@ export class GitHubLibrary implements GitLibrary {
     this.cached_mods = opts.cached_mods || new Map()
     this.owner = opts.owner
     this.repo = opts.repo
-    this.project_dir = opts.project_dir
+    this.dir = opts.dir
     this.checkout = opts.checkout
     this.stage = opts.stage
   }
 
-  static async create(opts: {
-    auth: string
-    owner: string
-    repo: string
-    project_dir: string
-    stage?: Stage
-  }): Promise<GitHubLibrary> {
-    const { auth, owner, repo, project_dir, stage } = opts
+  static async create(
+    project_id: string | { owner: string; repo: string },
+    opts: {
+      token: string
+      dir: string
+      stage?: Stage
+    }
+  ): Promise<GitHubLibrary> {
+    const { owner, repo } =
+      typeof project_id === "string"
+        ? {
+            owner: project_id.split("/")[0],
+            repo: project_id.split("/")[1],
+          }
+        : project_id
 
-    const requester = new Octokit({ auth })
+    const { token, dir, stage } = opts
+
+    const requester = new Octokit({ auth: token })
 
     const config = await create_config({
       requester,
       owner,
       repo,
-      project_dir,
+      dir,
     })
 
     const checkout = await create_checkout({
       requester,
       owner,
       repo,
-      project_dir,
+      dir,
       config,
     })
 
@@ -64,7 +73,7 @@ export class GitHubLibrary implements GitLibrary {
       config,
       owner,
       repo,
-      project_dir,
+      dir,
       checkout,
       stage: stage || Stage.from_checkout(checkout),
     })
@@ -117,22 +126,22 @@ async function create_config(opts: {
   requester: Octokit
   owner: string
   repo: string
-  project_dir: string
+  dir: string
 }): Promise<LibraryConfig> {
-  const { requester, owner, repo, project_dir } = opts
+  const { requester, owner, repo, dir } = opts
 
   const { data } = await requester.rest.repos.getContent({
     owner,
     repo,
-    path: `${project_dir}/library.json`,
+    path: `${dir}/library.json`,
   })
 
   if (data instanceof Array) {
-    throw new Error(`Expecting data to be object: ${project_dir}/library.json`)
+    throw new Error(`Expecting data to be object: ${dir}/library.json`)
   }
 
   if (!("content" in data)) {
-    throw new Error(`Expecting content in data: ${project_dir}/library.json`)
+    throw new Error(`Expecting content in data: ${dir}/library.json`)
   }
 
   const text = Base64.decode(data.content)
@@ -144,19 +153,19 @@ async function create_checkout(opts: {
   requester: Octokit
   owner: string
   repo: string
-  project_dir: string
+  dir: string
   config: LibraryConfig
 }): Promise<Checkout> {
-  const { requester, owner, repo, project_dir, config } = opts
+  const { requester, owner, repo, dir, config } = opts
 
   const { data: entries } = await requester.rest.repos.getContent({
     owner,
     repo,
-    path: `${project_dir}`,
+    path: `${dir}`,
   })
 
   if (!(entries instanceof Array)) {
-    throw new Error(`Expecting data to be Array: ${project_dir}`)
+    throw new Error(`Expecting data to be Array: ${dir}`)
   }
 
   const src_entry = entries.find(
@@ -164,7 +173,7 @@ async function create_checkout(opts: {
   )
 
   if (src_entry === undefined) {
-    throw new Error(`Expecting src entry: ${project_dir}/${config.src}`)
+    throw new Error(`Expecting src entry: ${dir}/${config.src}`)
   }
 
   const { data: root } = await requester.rest.git.getTree({
@@ -181,7 +190,7 @@ async function create_checkout(opts: {
           (entry) => entry.type === "blob" && entry.path?.endsWith(".cic")
         )
         .map(async (entry) => {
-          const path = `${project_dir}/${config.src}/${entry.path}`
+          const path = `${dir}/${config.src}/${entry.path}`
           const { data } = await requester.rest.repos.getContent({
             owner,
             repo,

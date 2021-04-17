@@ -30,31 +30,24 @@ export default class Studyroom extends Vue {
   state: State = new State()
 
   async mounted(): Promise<void> {
-    await this.load_github_library()
-    // await this.load_library()
+    // await this.load_github_library()
+    await this.load_gitlib_library()
   }
 
   async load_github_library(): Promise<void> {
-    const opts = {
-      auth: "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",
-      owner: "cicada-lang",
-      repo: "cicada",
-      project_dir: "std",
-    }
-
-    this.state.library = await GitHubLibrary.create(opts)
+    this.state.library = await GitHubLibrary.create("cicada-lang/cicada", {
+      token: "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",
+      dir: "std",
+    })
     await this.state.init()
   }
 
-  async load_library(): Promise<void> {
-    const opts = {
+  async load_gitlib_library(): Promise<void> {
+    this.state.library = await GitLabLibrary.create("cicada-lang/cicada", {
       host: "https://gitlab.com",
       token: "soodzUTPvKGN-78m_nBM",
-      project_id: "cicada-lang/cicada",
-      project_dir: "std",
-    }
-
-    this.state.library = await GitLabLibrary.create(opts)
+      dir: "std",
+    })
     await this.state.init()
   }
 }

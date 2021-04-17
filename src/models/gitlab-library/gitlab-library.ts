@@ -9,7 +9,7 @@ export class GitLabLibrary implements GitLibrary {
   cached_mods: Map<string, Module>
   host: string
   project_id: string | number
-  project_dir: string
+  dir: string
   checkout: Checkout
   stage: Stage
 
@@ -19,7 +19,7 @@ export class GitLabLibrary implements GitLibrary {
     cached_mods?: Map<string, Module>
     host: string
     project_id: string | number
-    project_dir: string
+    dir: string
     checkout: Checkout
     stage: Stage
   }) {
@@ -28,32 +28,34 @@ export class GitLabLibrary implements GitLibrary {
     this.cached_mods = opts.cached_mods || new Map()
     this.host = opts.host
     this.project_id = opts.project_id
-    this.project_dir = opts.project_dir
+    this.dir = opts.dir
     this.checkout = opts.checkout
     this.stage = opts.stage
   }
 
-  static async create(opts: {
-    host: string
-    token: string
-    project_id: string | number
-    project_dir: string
-    stage?: Stage
-  }): Promise<GitLabLibrary> {
-    const { host, token, project_id, project_dir, stage } = opts
+  static async create(
+    project_id: string | number,
+    opts: {
+      host: string
+      token: string
+      dir: string
+      stage?: Stage
+    }
+  ): Promise<GitLabLibrary> {
+    const { host, token, dir, stage } = opts
 
     const requester = new Gitlab({ host, token })
 
     const config = await create_config({
       requester,
       project_id,
-      project_dir,
+      dir,
     })
 
     const checkout = await create_checkout({
       requester,
       project_id,
-      project_dir,
+      dir,
       config,
     })
 
@@ -62,7 +64,7 @@ export class GitLabLibrary implements GitLibrary {
       config,
       host,
       project_id,
-      project_dir,
+      dir,
       checkout,
       stage: stage || Stage.from_checkout(checkout),
     })
@@ -124,14 +126,14 @@ function normalize_file(file: string): string {
 
 async function create_config(opts: {
   project_id: string | number
-  project_dir: string
+  dir: string
   requester: InstanceType<typeof Gitlab>
 }): Promise<LibraryConfig> {
-  const { requester, project_id, project_dir } = opts
+  const { requester, project_id, dir } = opts
 
   const data = await requester.RepositoryFiles.show(
     project_id,
-    `${project_dir}/library.json`,
+    `${dir}/library.json`,
     "master"
   )
 
@@ -143,20 +145,20 @@ async function create_config(opts: {
 async function create_checkout(opts: {
   requester: InstanceType<typeof Gitlab>
   project_id: string | number
-  project_dir: string
+  dir: string
   config: LibraryConfig
 }): Promise<Checkout> {
-  const { requester, project_id, project_dir, config } = opts
+  const { requester, project_id, dir, config } = opts
 
   const entries = (await requester.Repositories.tree(project_id, {
-    path: project_dir,
+    path: dir,
     recursive: true,
   })) as Record<string, any>[]
 
   const paths: Array<string> = entries
     .filter((entry) => entry.type === "blob" && entry.path.endsWith(".cic"))
     .map((entry) => {
-      const prefix = normalize_dir(`${project_dir}/${config.src}`)
+      const prefix = normalize_dir(`${dir}/${config.src}`)
       const path = normalize_file(entry.path.slice(prefix.length))
       return path
     })
@@ -164,7 +166,7 @@ async function create_checkout(opts: {
   const files = Object.fromEntries(
     await Promise.all(
       paths.map(async (path) => {
-        const file_path = `${project_dir}/${config.src}/${path}`
+        const file_path = `${dir}/${config.src}/${path}`
         const file_entry = await requester.RepositoryFiles.show(
           project_id,
           file_path,

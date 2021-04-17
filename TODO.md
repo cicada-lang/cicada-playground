@@ -1,5 +1,3 @@
-- [model] normalize `GitHubLibrary` and `GitLabLibrary` -- argument opts
-
 - [studyroom-file-list] -- better view
 - [studyroom-reporter] -- better view for `Trace`
 - [studyroom-reporter] -- better view for `ParsingError`
