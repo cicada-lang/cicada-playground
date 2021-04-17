@@ -1,27 +1,11 @@
 <template>
   <div class="flex flex-col items-start">
-    <h1>Entrance</h1>
-
-    <form @submit.prevent="enter">
-      <p>
-        <label for="servant">Servant:</label>
-        <input required type="text" id="servant" v-model="state.servant" />
-      </p>
-
-      <p>
-        <label for="library_id">Project:</label>
-        <input
-          required
-          type="text"
-          id="library_id"
-          v-model="state.library_id"
-        />
-      </p>
-
-      <p>
-        <button type="submit">Enter</button>
-      </p>
-    </form>
+    <ul>
+      <li v-for="library in state.library_list" @click="select(library)">
+        <p>{{ library.servant }}</p>
+        <p>{{ library.library_id }}</p>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -31,16 +15,11 @@ import { EntranceState as State } from "./entrance-state"
 
 @Component
 export default class EntranceLibraryList extends Vue {
-  state = new State
+  @Prop() state!: State
 
-  enter(): void {
-    this.$router.push({
-      path: "/studyroom",
-      query: {
-        s: this.state.servant,
-        p: this.state.library_id,
-      },
-    })
+  select(library: { servant: string; library_id: string }): void {
+    this.state.servant = library.servant
+    this.state.library_id = library.library_id
   }
 }
 </script>

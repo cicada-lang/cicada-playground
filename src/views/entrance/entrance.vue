@@ -22,16 +22,34 @@
         <button type="submit">Enter</button>
       </p>
     </form>
+
+    <EntranceLibraryList :state="state" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator"
 import { EntranceState as State } from "./entrance-state"
+import EntranceLibraryList from "./entrance-library-list.vue"
 
-@Component
+@Component({
+  components: {
+    EntranceLibraryList,
+  },
+})
 export default class Entrance extends Vue {
-  state = new State
+  state = new State()
+
+  mounted(): void {
+    this.init_library_list()
+  }
+
+  init_library_list(): void {
+    this.state.library_list = [
+      { servant: "github", library_id: "cicada-lang/cicada-stdlib" },
+      { servant: "gitlab", library_id: "cicada-lang/cicada-stdlib" },
+    ]
+  }
 
   enter(): void {
     this.$router.push({

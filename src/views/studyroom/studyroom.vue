@@ -1,6 +1,11 @@
 <template>
   <div class="flex flex-col items-start">
     <h1>Studyroom</h1>
+
+    <button>
+      <router-link :to="{ path: '/entrance' }"> Back </router-link>
+    </button>
+
     <div v-if="state.library" class="flex">
       <StudyroomFileList :state="state" />
       <StudyroomEditor :state="state" />

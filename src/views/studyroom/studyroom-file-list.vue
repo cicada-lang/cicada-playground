@@ -1,7 +1,7 @@
 <template>
   <div v-if="state.library" class="flex">
     <ul>
-      <li v-for="(text, path) in state.library.stage.files">
+      <li v-for="(text, path) in state.library.stage.files" :key="path">
         <button
           :class="{ 'bg-gray-200': path === state.current_path }"
           @click="

@@ -1,8 +1,10 @@
-- [entrance-library-list] -- list some existing library
+- [entrance-form] -- `EntranceForm`
 
 - [entrance] -- import style
+- [entrance-form] -- import style
 - [entrance-library-list] -- import style
 
+- [studyroom] -- import style
 - [studyroom-file-list] -- import style
 - [studyroom-reporter] -- import style for `Trace`
 - [studyroom-reporter] -- import style for `ParsingError`
