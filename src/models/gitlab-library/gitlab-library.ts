@@ -35,6 +35,24 @@ export class GitLabLibrary implements GitLibrary {
     this.stage = opts.stage
   }
 
+  static async create_config(opts: {
+    project_id: string | number
+    project_dir: string
+    requester: InstanceType<typeof Gitlab>
+  }): Promise<LibraryConfig> {
+    const { requester, project_id, project_dir } = opts
+
+    const data = await requester.RepositoryFiles.show(
+      project_id,
+      `${project_dir}/library.json`,
+      "master"
+    )
+
+    const text = Base64.decode(data.content)
+
+    return new LibraryConfig(JSON.parse(text))
+  }
+
   static async create(opts: {
     host: string
     token: string
@@ -46,15 +64,11 @@ export class GitLabLibrary implements GitLibrary {
 
     const requester = new Gitlab({ host, token })
 
-    const file_path = `${project_dir}/library.json`
-    const file_entry = await requester.RepositoryFiles.show(
+    const config = await GitLabLibrary.create_config({
+      requester,
       project_id,
-      file_path,
-      "master"
-    )
-
-    const text = Base64.decode(file_entry.content)
-    const config = new LibraryConfig(JSON.parse(text))
+      project_dir,
+    })
 
     const checkout = await Checkout.create({
       requester,
@@ -112,6 +126,6 @@ export class GitLabLibrary implements GitLibrary {
   }
 
   async commit(): Promise<void> {
-    // TODO
+    throw new Error("TODO")
   }
 }

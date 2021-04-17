@@ -14,6 +14,7 @@
 import { Component, Vue } from "vue-property-decorator"
 import { StudyroomState as State } from "./studyroom-state"
 import { GitLabLibrary } from "@/models/gitlab-library"
+import { GitHubLibrary } from "@/models/github-library"
 import StudyroomFileList from "./studyroom-file-list.vue"
 import StudyroomEditor from "./studyroom-editor.vue"
 import StudyroomReporter from "./studyroom-reporter.vue"
@@ -25,6 +26,23 @@ export default class Studyroom extends Vue {
   state: State = new State()
 
   async mounted(): Promise<void> {
+    await this.load_github_library()
+    await this.load_library()
+  }
+
+  async load_github_library(): Promise<void> {
+    const opts = {
+      auth: "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",
+      owner: "cicada-lang",
+      repo: "cicada",
+      project_dir: "std",
+    }
+
+    const library = await GitHubLibrary.create(opts)
+    // console.log(library)
+  }
+
+  async load_library(): Promise<void> {
     const opts = {
       host: "https://gitlab.com",
       token: "soodzUTPvKGN-78m_nBM",

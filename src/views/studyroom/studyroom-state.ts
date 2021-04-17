@@ -1,4 +1,6 @@
+import { GitLibrary } from "@/models/git-library"
 import { GitLabLibrary } from "@/models/gitlab-library"
+import { GitHubLibrary } from "@/models/github-library"
 
 export class StudyroomState {
   library: null | GitLabLibrary = null
