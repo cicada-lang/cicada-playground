@@ -37,7 +37,7 @@ export class StudyroomState {
     if (!this.current_path) return
 
     try {
-      const mod = await this.library.load(this.current_path, { force: true })
+      const mod = await this.library.reload(this.current_path)
       this.current_report = { output: mod.output }
     } catch (error) {
       this.current_report = { error }
