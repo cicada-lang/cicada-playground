@@ -7,15 +7,21 @@ export class GitHubLibrary implements GitLibrary {
   requester: Octokit
   config: LibraryConfig
   cached_mods: Map<string, Module>
+  checkout: Checkout
+  stage: Stage
 
   constructor(opts: {
     requester: Octokit
     config: LibraryConfig
     cached_mods?: Map<string, Module>
+    checkout: Checkout
+    stage: Stage
   }) {
     this.requester = opts.requester
     this.config = opts.config
     this.cached_mods = opts.cached_mods || new Map()
+    this.checkout = opts.checkout
+    this.stage = opts.stage
   }
 
   static async create(opts: {
@@ -23,8 +29,9 @@ export class GitHubLibrary implements GitLibrary {
     owner: string
     repo: string
     project_dir: string
+    stage?: Stage
   }): Promise<GitHubLibrary> {
-    const { auth, owner, repo, project_dir } = opts
+    const { auth, owner, repo, project_dir, stage } = opts
 
     const requester = new Octokit({ auth })
 
@@ -35,9 +42,13 @@ export class GitHubLibrary implements GitLibrary {
       project_dir,
     })
 
+    const checkout = new Checkout()
+
     return new GitHubLibrary({
       requester,
       config,
+      checkout,
+      stage: stage || Stage.from_checkout(checkout),
     })
   }
 
@@ -70,12 +81,17 @@ export class GitHubLibrary implements GitLibrary {
     return new LibraryConfig(JSON.parse(text))
   }
 
+  async reload(path: string): Promise<Module> {
+    this.cached_mods.delete(path)
+    return await this.load(path)
+  }
+
   async load(path: string, opts?: { force?: boolean }): Promise<Module> {
     throw new Error("TODO")
   }
 
   async fetch_files(): Promise<Map<string, string>> {
-    throw new Error("TODO")
+    return new Map(Object.entries(this.stage.files))
   }
 
   async load_mods(): Promise<Map<string, Module>> {

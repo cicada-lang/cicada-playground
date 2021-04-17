@@ -125,11 +125,12 @@ export class GitLabLibrary implements GitLibrary {
     return new Checkout({ files })
   }
 
-  async load(path: string, opts?: { force?: boolean }): Promise<Module> {
-    if (opts?.force) {
-      this.cached_mods.delete(path)
-    }
+  async reload(path: string): Promise<Module> {
+    this.cached_mods.delete(path)
+    return await this.load(path)
+  }
 
+  async load(path: string): Promise<Module> {
     const cached = this.cached_mods.get(path)
     if (cached) {
       return cached

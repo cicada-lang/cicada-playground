@@ -1,13 +1,11 @@
 import { GitLibrary } from "@/models/git-library"
-import { GitLabLibrary } from "@/models/gitlab-library"
-import { GitHubLibrary } from "@/models/github-library"
 
 export class StudyroomState {
-  library: null | GitLabLibrary = null
+  library: null | GitLibrary = null
   current_path: null | string = null
   current_report: null | { output?: string; error?: Error } = null
 
-  constructor(opts?: { library?: GitLabLibrary }) {
+  constructor(opts?: { library?: GitLibrary }) {
     if (opts?.library) {
       this.library = opts.library
     }

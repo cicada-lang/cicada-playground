@@ -1,5 +1,4 @@
 - [model] -- `GitHubLibrary.load`
-- [model] -- `GitHubLibrary.fetch_files`
 
 - [studyroom-file-list] -- better view
 - [studyroom-reporter] -- better view for `Trace`
