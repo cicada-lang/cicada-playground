@@ -5,12 +5,17 @@
     <form @submit.prevent="enter">
       <p>
         <label for="servant">Servant:</label>
-        <input required type="text" id="servant" v-model="servant" />
+        <input required type="text" id="servant" v-model="state.servant" />
       </p>
 
       <p>
         <label for="project_id">Project:</label>
-        <input required type="text" id="project_id" v-model="project_id" />
+        <input
+          required
+          type="text"
+          id="project_id"
+          v-model="state.project_id"
+        />
       </p>
 
       <p>
@@ -22,18 +27,18 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator"
+import { EntranceState as State } from "./entrance-state"
 
 @Component
 export default class Entrance extends Vue {
-  servant: null | string = null
-  project_id: null | string = null
+  state = new State
 
   enter(): void {
     this.$router.push({
       path: "/studyroom",
       query: {
-        s: this.servant,
-        p: this.project_id,
+        s: this.state.servant,
+        p: this.state.project_id,
       },
     })
   }

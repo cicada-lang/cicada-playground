@@ -30,7 +30,7 @@ export default class Studyroom extends Vue {
   @Prop() servant!: string
   @Prop() project_id!: string
 
-  state: State = new State()
+  state = new State()
 
   async mounted(): Promise<void> {
     await this.load_git_library()
