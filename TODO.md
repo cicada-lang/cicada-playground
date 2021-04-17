@@ -1,3 +1,7 @@
+- [studyroom] -- load project info from url query
+- [entrance] -- jump to studyroom
+- [entrance-library-list] -- list some existing library
+
 - [studyroom-file-list] -- better view
 - [studyroom-reporter] -- better view for `Trace`
 - [studyroom-reporter] -- better view for `ParsingError`
@@ -7,7 +11,7 @@
 - [oauth] -- `GitLab`
 - [oauth] -- `GitHub`
 
-- [studyroom] -- load project info from url query
+- [studyroom-toolbox] -- save button
 
 - [model] -- `GitLabLibrary.commit`
 - [model] -- `GitHubLibrary.commit`
