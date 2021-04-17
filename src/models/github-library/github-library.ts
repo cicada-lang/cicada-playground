@@ -4,6 +4,7 @@ import { Octokit } from "@octokit/rest"
 
 export class GitHubLibrary implements GitLibrary {
   config: LibraryConfig
+  cached_mods?: Map<string, Module>
 
   constructor(opts: {
     config: LibraryConfig
