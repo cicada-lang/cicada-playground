@@ -2,8 +2,8 @@
   <div class="flex flex-col items-start">
     <h1>Entrance</h1>
 
-    <EntranceForm :state="state" />
-    <EntranceLibraryList :state="state" />
+    <entrance-form :state="state" />
+    <entrance-library-list :state="state" />
   </div>
 </template>
 

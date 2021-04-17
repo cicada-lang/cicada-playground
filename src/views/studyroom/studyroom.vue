@@ -7,9 +7,9 @@
     </button>
 
     <div v-if="state.library" class="flex">
-      <StudyroomFileList :state="state" />
-      <StudyroomEditor :state="state" />
-      <StudyroomReporter :state="state" />
+      <studyroom-file-list :state="state" />
+      <studyroom-editor :state="state" />
+      <studyroom-reporter :state="state" />
       <pre>{{ state.current_output }}</pre>
     </div>
     <div v-else>Loading</div>
