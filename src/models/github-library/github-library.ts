@@ -149,9 +149,35 @@ async function create_checkout(opts: {
 }): Promise<Checkout> {
   const { requester, owner, repo, project_dir, config } = opts
 
+  const { data: entries } = await requester.rest.repos.getContent({
+    owner,
+    repo,
+    path: `${project_dir}`,
+  })
+
+  if (!(entries instanceof Array)) {
+    throw new Error(`Expecting data to be Array: ${project_dir}`)
+  }
+
+  const src_entry = entries.find(
+    (entry) => entry.type === "dir" && entry.name === config.src
+  )
+
+  if (src_entry === undefined) {
+    throw new Error(`Expecting src entry: ${project_dir}/${config.src}`)
+  }
+
   const files = {}
 
+  const { data: root } = await requester.rest.git.getTree({
+    owner,
+    repo,
+    tree_sha: src_entry.sha,
+  })
+
   // TODO
+
+  console.log(root)
 
   return new Checkout({ files })
 }

@@ -43,7 +43,7 @@ export default class Studyroom extends Vue {
     }
 
     const library = await GitHubLibrary.create(opts)
-    console.log(library)
+    // console.log(library)
   }
 
   async load_library(): Promise<void> {
