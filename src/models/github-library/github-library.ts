@@ -1,4 +1,4 @@
-import { GitLibrary } from "@/models/git-library"
+import { GitLibrary, Stage, Checkout } from "@/models/git-library"
 import { LibraryConfig, Module, Syntax } from "@cicada-lang/cicada"
 import { Octokit } from "@octokit/rest"
 import { Base64 } from "js-base64"
@@ -16,6 +16,29 @@ export class GitHubLibrary implements GitLibrary {
     this.requester = opts.requester
     this.config = opts.config
     this.cached_mods = opts.cached_mods || new Map()
+  }
+
+  static async create(opts: {
+    auth: string
+    owner: string
+    repo: string
+    project_dir: string
+  }): Promise<GitHubLibrary> {
+    const { auth, owner, repo, project_dir } = opts
+
+    const requester = new Octokit({ auth })
+
+    const config = await GitHubLibrary.create_config({
+      requester,
+      owner,
+      repo,
+      project_dir,
+    })
+
+    return new GitHubLibrary({
+      requester,
+      config,
+    })
   }
 
   static async create_config(opts: {
@@ -45,29 +68,6 @@ export class GitHubLibrary implements GitLibrary {
     const text = Base64.decode(data.content)
 
     return new LibraryConfig(JSON.parse(text))
-  }
-
-  static async create(opts: {
-    auth: string
-    owner: string
-    repo: string
-    project_dir: string
-  }): Promise<GitHubLibrary> {
-    const { auth, owner, repo, project_dir } = opts
-
-    const requester = new Octokit({ auth })
-
-    const config = await GitHubLibrary.create_config({
-      requester,
-      owner,
-      repo,
-      project_dir,
-    })
-
-    return new GitHubLibrary({
-      requester,
-      config,
-    })
   }
 
   async load(path: string, opts?: { force?: boolean }): Promise<Module> {
