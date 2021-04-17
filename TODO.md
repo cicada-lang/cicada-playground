@@ -1,4 +1,5 @@
-- [model] -- `GitHubLibrary.create_checkout`
+- [model] -- `GitHubLibrary` -- `create_checkout`
+- [model] normalize `GitHubLibrary` and `GitLabLibrary` arg-list
 
 - [studyroom-file-list] -- better view
 - [studyroom-reporter] -- better view for `Trace`

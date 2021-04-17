@@ -44,13 +44,13 @@ export class GitLabLibrary implements GitLibrary {
 
     const requester = new Gitlab({ host, token })
 
-    const config = await GitLabLibrary.create_config({
+    const config = await create_config({
       requester,
       project_id,
       project_dir,
     })
 
-    const checkout = await GitLabLibrary.create_checkout({
+    const checkout = await create_checkout({
       requester,
       project_id,
       project_dir,
@@ -66,63 +66,6 @@ export class GitLabLibrary implements GitLibrary {
       checkout,
       stage: stage || Stage.from_checkout(checkout),
     })
-  }
-
-  static async create_config(opts: {
-    project_id: string | number
-    project_dir: string
-    requester: InstanceType<typeof Gitlab>
-  }): Promise<LibraryConfig> {
-    const { requester, project_id, project_dir } = opts
-
-    const data = await requester.RepositoryFiles.show(
-      project_id,
-      `${project_dir}/library.json`,
-      "master"
-    )
-
-    const text = Base64.decode(data.content)
-
-    return new LibraryConfig(JSON.parse(text))
-  }
-
-  static async create_checkout(opts: {
-    requester: InstanceType<typeof Gitlab>
-    project_id: string | number
-    project_dir: string
-    config: LibraryConfig
-  }): Promise<Checkout> {
-    const { requester, project_id, project_dir, config } = opts
-
-    const entries = (await requester.Repositories.tree(project_id, {
-      path: project_dir,
-      recursive: true,
-    })) as Record<string, any>[]
-
-    const paths: Array<string> = entries
-      .filter((entry) => entry.type === "blob" && entry.path.endsWith(".cic"))
-      .map((entry) => {
-        const prefix = normalize_dir(`${project_dir}/${config.src}`)
-        const path = normalize_file(entry.path.slice(prefix.length))
-        return path
-      })
-
-    const files = Object.fromEntries(
-      await Promise.all(
-        paths.map(async (path) => {
-          const file_path = `${project_dir}/${config.src}/${path}`
-          const file_entry = await requester.RepositoryFiles.show(
-            project_id,
-            file_path,
-            "master"
-          )
-          const text = Base64.decode(file_entry.content)
-          return [path, text]
-        })
-      )
-    )
-
-    return new Checkout({ files })
   }
 
   async reload(path: string): Promise<Module> {
@@ -177,4 +120,61 @@ function normalize_dir(dir: string): string {
 function normalize_file(file: string): string {
   if (file.startsWith("/")) return normalize_dir(file.slice(1))
   else return file
+}
+
+async function create_config(opts: {
+  project_id: string | number
+  project_dir: string
+  requester: InstanceType<typeof Gitlab>
+}): Promise<LibraryConfig> {
+  const { requester, project_id, project_dir } = opts
+
+  const data = await requester.RepositoryFiles.show(
+    project_id,
+    `${project_dir}/library.json`,
+    "master"
+  )
+
+  const text = Base64.decode(data.content)
+
+  return new LibraryConfig(JSON.parse(text))
+}
+
+async function create_checkout(opts: {
+  requester: InstanceType<typeof Gitlab>
+  project_id: string | number
+  project_dir: string
+  config: LibraryConfig
+}): Promise<Checkout> {
+  const { requester, project_id, project_dir, config } = opts
+
+  const entries = (await requester.Repositories.tree(project_id, {
+    path: project_dir,
+    recursive: true,
+  })) as Record<string, any>[]
+
+  const paths: Array<string> = entries
+    .filter((entry) => entry.type === "blob" && entry.path.endsWith(".cic"))
+    .map((entry) => {
+      const prefix = normalize_dir(`${project_dir}/${config.src}`)
+      const path = normalize_file(entry.path.slice(prefix.length))
+      return path
+    })
+
+  const files = Object.fromEntries(
+    await Promise.all(
+      paths.map(async (path) => {
+        const file_path = `${project_dir}/${config.src}/${path}`
+        const file_entry = await requester.RepositoryFiles.show(
+          project_id,
+          file_path,
+          "master"
+        )
+        const text = Base64.decode(file_entry.content)
+        return [path, text]
+      })
+    )
+  )
+
+  return new Checkout({ files })
 }
