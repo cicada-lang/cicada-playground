@@ -1,11 +1,11 @@
-- [entrance] -- import style
-- [entrance-form] -- import style
-- [entrance-library-list] -- import style
+- [entrance] -- improve style
+- [entrance-form] -- improve style
+- [entrance-library-list] -- improve style
 
-- [studyroom] -- import style
-- [studyroom-file-list] -- import style
-- [studyroom-reporter] -- import style for `Trace`
-- [studyroom-reporter] -- import style for `ParsingError`
+- [studyroom] -- improve style
+- [studyroom-file-list] -- improve style
+- [studyroom-reporter] -- improve style for `Trace`
+- [studyroom-reporter] -- improve style for `ParsingError`
 
 - [studyroom-editor] -- use codemirror
 
