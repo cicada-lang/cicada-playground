@@ -7,6 +7,7 @@
     >
       <button
         :class="[
+          'w-full',
           'rounded-l-lg',
           {
             'hover:bg-pink-100': path !== state.current_path,
@@ -19,7 +20,7 @@
           state.run()
         "
       >
-        <p class="md:w-64 pl-2 overflow-x-auto text-left">
+        <p class="md:w-64 pl-2 overflow-x-auto text-left w-full">
           {{ path }}
         </p>
       </button>
