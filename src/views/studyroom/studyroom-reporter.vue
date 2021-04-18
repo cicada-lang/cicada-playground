@@ -4,7 +4,7 @@
     class="p-2 overflow-x-auto overflow-y-auto"
     style="max-height: 43rem"
   >
-    <pre v-if="state.current_report.error">{{
+    <pre v-if="state.current_report.error" class="font-mono">{{
       state.current_report.error
     }}</pre>
     <pre v-else>{{ state.current_report.output }}</pre>
