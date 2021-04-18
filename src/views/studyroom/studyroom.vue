@@ -1,10 +1,6 @@
 <template>
   <div class="md:px-8 md:py-6 flex flex-col items-start px-4 py-3">
-    <page-header>
-      <button class="hover:text-gray-500">
-        <router-link :to="{ path: '/entrance' }">BACK</router-link>
-      </button>
-    </page-header>
+    <page-header />
 
     <div class="flex flex-wrap items-baseline py-2">
       <h2 class="text-xl font-bold">//// Study</h2>

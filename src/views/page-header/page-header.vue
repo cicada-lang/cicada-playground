@@ -1,6 +1,8 @@
 <template>
   <div class="flex">
-    <div class="flex py-3 text-lg font-bold">Cicada Studyroom</div>
+    <div class="flex py-3 text-lg font-bold">
+      <router-link :to="{ path: '/' }"> Cicada Studyroom </router-link>
+    </div>
     <div class="flex pl-2">
       <slot></slot>
     </div>
