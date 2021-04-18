@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-start px-8 py-6">
     <page-header />
-    <h1 class="text-xl font-bold">// Entrance</h1>
+    <h1 class="text-xl font-bold py-2">//// Entrance</h1>
     <entrance-form :state="state" />
     <entrance-library-list :state="state" />
   </div>

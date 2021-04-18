@@ -1,6 +1,3 @@
-cst
-- [entrance] -- improve style
-- [entrance-form] -- improve style
 - [entrance-library-list] -- improve style
 
 - [studyroom] -- improve style

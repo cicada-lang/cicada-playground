@@ -1,5 +1,5 @@
 <template>
-  <div class="flex text-lg font-bold py-2">Cicada Studyroom</div>
+  <div class="flex text-lg font-bold py-3">Cicada Studyroom</div>
 </template>
 
 <script lang="ts">
