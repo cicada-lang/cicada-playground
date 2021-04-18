@@ -1,11 +1,12 @@
 <template>
   <div class="flex flex-col items-start px-4 py-3 md:px-8 md:py-6">
-    <page-header />
-    <h1 class="text-xl font-bold py-2">//// Study</h1>
+    <page-header>
+      <button class="hover:text-gray-500">
+        <router-link :to="{ path: '/entrance' }">BACK</router-link>
+      </button>
+    </page-header>
 
-    <button>
-      <router-link :to="{ path: '/entrance' }">Back</router-link>
-    </button>
+    <h1 class="text-xl font-bold py-2">//// Study</h1>
 
     <div v-if="state.library" class="flex">
       <studyroom-file-list :state="state" />

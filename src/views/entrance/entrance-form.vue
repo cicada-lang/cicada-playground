@@ -12,7 +12,7 @@
         <input required type="text" v-model="state.library_id" />
       </label>
 
-      <button class="py-1" type="submit">ENTER</button>
+      <button class="py-1 hover:text-gray-500" type="submit">ENTER</button>
     </form>
   </div>
 </template>
