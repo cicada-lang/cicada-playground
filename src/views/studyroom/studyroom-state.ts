@@ -1,9 +1,24 @@
 import { GitLibrary } from "@/models/git-library"
+import { Trace } from "@cicada-lang/cicada"
+import pt, { ParsingError } from "@cicada-lang/partech"
+
+type Report = {
+  output?: string
+  semantic_error?: {
+    message: string
+    previous_expressions: Array<string>
+  }
+  syntax_error?: {
+    message: string
+    context?: string
+  }
+  unknown_error?: Error
+}
 
 export class StudyroomState {
   library: null | GitLibrary = null
   current_path: null | string = null
-  current_report: null | { output?: string; error?: Error } = null
+  current_report: null | Report = null
 
   constructor(opts?: { library?: GitLibrary }) {
     if (opts?.library) {
@@ -40,7 +55,25 @@ export class StudyroomState {
       const mod = await this.library.reload(this.current_path)
       this.current_report = { output: mod.output }
     } catch (error) {
-      this.current_report = { error }
+      if (error instanceof Trace) {
+        this.current_report = {
+          semantic_error: {
+            message: error.message,
+            previous_expressions: error.previous.map((exp) => exp.repr()),
+          },
+        }
+      } else if (error instanceof ParsingError) {
+        this.current_report = {
+          syntax_error: {
+            message: error.message.trim(),
+            context: this.current_text
+              ? pt.report(error.span, this.current_text)
+              : undefined,
+          },
+        }
+      } else {
+        this.current_report = { unknown_error: error }
+      }
     }
   }
 }
