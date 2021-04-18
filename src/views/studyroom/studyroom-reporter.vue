@@ -7,7 +7,7 @@
     <div v-if="trace">
       <h2 class="text-lg font-bold text-red-600">// Error</h2>
       <div class="py-2">{{ trace.message }}</div>
-      <p class="p-1 text-gray-500">previous expressions:</p>
+      <p class="p-2 text-gray-500">Previous expressions:</p>
       <div
         v-for="(exp, index) in trace.previous"
         :key="index"
@@ -18,7 +18,7 @@
     </div>
     <div v-else-if="parsing_error">
       <h2 class="text-lg font-bold text-yellow-600">// Parsing Error</h2>
-      <pre class="py-2" v-html="parsing_error.context"></pre>      
+      <pre class="py-2" v-html="parsing_error.context"></pre>
       <pre class="py-2" v-html="parsing_error.message"></pre>
     </div>
     <div v-else-if="state.current_report.error">
