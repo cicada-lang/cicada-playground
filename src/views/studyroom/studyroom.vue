@@ -10,7 +10,7 @@
 
     <div class="flex flex-wrap items-baseline py-2">
       <h2 class="text-xl font-bold">//// Study</h2>
-      <h1 v-if="state.library" class="pl-2 text-lg font-bold text-gray-500">
+      <h1 v-if="state.library" class="pl-3 text-lg font-bold text-gray-500">
         {{ state.library.config.name }}
       </h1>
     </div>
