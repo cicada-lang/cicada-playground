@@ -1,5 +1,5 @@
 <template>
-  <div class="md:py-6 flex flex-col items-start p-2">
+  <div class="md:p-6 flex flex-col items-start p-2">
     <page-header />
 
     <div class="flex flex-wrap items-baseline py-2">

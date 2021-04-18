@@ -1,5 +1,5 @@
 <template>
-  <div class="md:py-6 flex flex-col items-start p-2">
+  <div class="md:p-6 flex flex-col items-start p-2">
     <page-header />
 
     <h1 class="py-2 text-xl font-bold">//// Entrance</h1>
