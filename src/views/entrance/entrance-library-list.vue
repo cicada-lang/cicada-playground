@@ -1,8 +1,13 @@
 <template>
-  <div class="flex flex-col items-start">
-    <ul>
-      <li v-for="library in state.library_list" @click="select(library)">
-        <p>{{ library.servant }}</p>
+  <div class="py-2">
+    <h2 class="text-lg font-bold">// Library List</h2>
+    <ul class="flex flex-col items-start p-2">
+      <li
+        v-for="library in state.library_list"
+        @click="select(library)"
+        class="flex p-1 hover:text-gray-500"
+      >
+        <p>{{ library.servant }}</p>:
         <p>{{ library.library_id }}</p>
       </li>
     </ul>

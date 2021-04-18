@@ -1,5 +1,3 @@
-- [entrance-library-list] -- improve style
-
 - [studyroom] -- improve style
 - [studyroom-file-list] -- improve style
 - [studyroom-reporter] -- improve style for `Trace`
