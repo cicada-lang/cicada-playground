@@ -1,6 +1,6 @@
 <template>
   <textarea
-    style="min-width: 43rem; min-height: 43rem"
+    style="min-height: 43rem"
     spellcheck="false"
     cols="64"
     rows="28"
