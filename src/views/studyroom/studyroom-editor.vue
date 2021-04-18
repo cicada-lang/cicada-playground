@@ -1,6 +1,6 @@
 <template>
   <textarea
-    class="min-w-max"
+    class="min-w-max font-mono"
     style="min-height: 43rem"
     spellcheck="false"
     cols="64"
