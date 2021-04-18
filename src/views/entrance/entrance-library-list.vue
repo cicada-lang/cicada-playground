@@ -1,14 +1,13 @@
 <template>
   <div class="py-2">
-    <h2 class="text-lg font-bold">// Library List</h2>
+    <h2 class="text-lg font-bold">// 諸書館 / Library List</h2>
     <ul class="flex flex-col items-start p-2">
       <li
         v-for="library in state.library_list"
         @click="select(library)"
         class="hover:text-gray-500 flex p-1"
       >
-        <p>{{ library.servant }}</p>
-        :
+        <p>{{ library.servant }}:</p>
         <p>{{ library.library_id }}</p>
       </li>
     </ul>

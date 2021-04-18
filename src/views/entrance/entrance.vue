@@ -2,7 +2,7 @@
   <div class="md:px-6 md:py-4 flex flex-col items-start p-2">
     <page-header />
 
-    <h1 class="py-2 text-xl font-bold">//// Entrance</h1>
+    <h1 class="py-2 text-xl font-bold">//// 入場 / Entrance</h1>
     <entrance-form :state="state" />
     <entrance-library-list :state="state" />
   </div>

@@ -1,3 +1,5 @@
+- extract `trace` and `parsing_error` to state
+
 - [oauth] -- `GitLab`
 - [oauth] -- `GitHub`
 

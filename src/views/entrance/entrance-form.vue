@@ -1,18 +1,22 @@
 <template>
   <div class="py-2">
-    <h2 class="text-lg font-bold">// Form</h2>
-    <form @submit.prevent="enter" class="flex flex-col items-end">
-      <label class="flex items-baseline py-1">
-        <p class="px-2">servant:</p>
+    <h2 class="text-lg font-bold">// 填表 / Form</h2>
+    <form @submit.prevent="enter" class="flex flex-col">
+      <label class="flex items-baseline justify-between py-1">
+        <p class="px-2">侍者 / servant</p>
         <input required type="text" v-model="state.servant" />
       </label>
 
-      <label class="flex items-baseline py-1">
-        <p class="px-2">project:</p>
+      <label class="flex items-baseline justify-between py-1">
+        <p class="px-2">書館 / library</p>
         <input required type="text" v-model="state.library_id" />
       </label>
 
-      <button class="hover:text-gray-500 py-1" type="submit">ENTER</button>
+      <div class="flex justify-end">
+        <button class="hover:text-gray-500 py-1" type="submit">
+          <p class="font-bold">進入 / ENTER</p>
+        </button>
+      </div>
     </form>
   </div>
 </template>
