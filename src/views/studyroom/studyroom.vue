@@ -11,7 +11,7 @@
 
     <div
       v-if="state.library"
-      class="flex flex-col md:flex-row w-full max-h-full"
+      class="md:flex-row flex flex-col w-full max-h-full"
     >
       <studyroom-file-list :state="state" />
       <studyroom-editor :state="state" />
