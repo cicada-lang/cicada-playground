@@ -2,17 +2,17 @@
   <div class="py-2">
     <h2 class="text-lg font-bold">// Form</h2>
     <form @submit.prevent="enter" class="flex flex-col items-end">
-      <label class="py-1 flex items-baseline">
+      <label class="flex items-baseline py-1">
         <p class="px-2">servant:</p>
         <input required type="text" v-model="state.servant" />
       </label>
 
-      <label class="py-1 flex items-baseline">
+      <label class="flex items-baseline py-1">
         <p class="px-2">project:</p>
         <input required type="text" v-model="state.library_id" />
       </label>
 
-      <button class="py-1 hover:text-gray-500" type="submit">ENTER</button>
+      <button class="hover:text-gray-500 py-1" type="submit">ENTER</button>
     </form>
   </div>
 </template>

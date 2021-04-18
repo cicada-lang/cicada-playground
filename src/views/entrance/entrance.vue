@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col items-start px-4 py-3 md:px-8 md:py-6">
+  <div class="md:px-8 md:py-6 flex flex-col items-start px-4 py-3">
     <page-header />
 
-    <h1 class="text-xl font-bold py-2">//// Entrance</h1>
+    <h1 class="py-2 text-xl font-bold">//// Entrance</h1>
     <entrance-form :state="state" />
     <entrance-library-list :state="state" />
   </div>

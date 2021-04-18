@@ -1,19 +1,23 @@
 <template>
-  <div class="flex flex-col items-start px-4 py-3 md:px-8 md:py-6">
+  <div class="md:px-8 md:py-6 flex flex-col items-start px-4 py-3">
     <page-header>
       <button class="hover:text-gray-500">
         <router-link :to="{ path: '/entrance' }">BACK</router-link>
       </button>
     </page-header>
 
-    <div class="flex py-2 items-baseline">
-      <h1 class="text-xl font-bold">//// Study</h1>
+    <div class="flex flex-wrap items-baseline py-2">
+      <h2 class="text-xl font-bold">//// Study</h2>
       <div class="pl-2">
         <button class="hover:text-gray-500" @click="show_files = !show_files">
           FILES
         </button>
       </div>
     </div>
+
+    <h1 v-if="state.library" class="pb-2 text-lg font-bold text-gray-500">
+      {{ state.library.config.name }}
+    </h1>
 
     <div v-if="state.library" class="flex">
       <studyroom-file-list v-show="show_files" :state="state" />

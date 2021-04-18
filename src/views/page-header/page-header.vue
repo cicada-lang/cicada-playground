@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <div class="flex text-lg font-bold py-3">Cicada Studyroom</div>
+    <div class="flex py-3 text-lg font-bold">Cicada Studyroom</div>
     <div class="flex pl-2">
       <slot></slot>
     </div>

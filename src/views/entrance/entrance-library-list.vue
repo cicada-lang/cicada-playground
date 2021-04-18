@@ -5,9 +5,10 @@
       <li
         v-for="library in state.library_list"
         @click="select(library)"
-        class="flex p-1 hover:text-gray-500"
+        class="hover:text-gray-500 flex p-1"
       >
-        <p>{{ library.servant }}</p>:
+        <p>{{ library.servant }}</p>
+        :
         <p>{{ library.library_id }}</p>
       </li>
     </ul>
