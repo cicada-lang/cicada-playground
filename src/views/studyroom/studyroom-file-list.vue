@@ -15,7 +15,7 @@
           state.run()
         "
       >
-        <p class="pl-2 overflow-x-auto text-left md:w-64">
+        <p class="md:w-64 pl-2 overflow-x-auto text-left">
           {{ path }}
         </p>
       </button>
