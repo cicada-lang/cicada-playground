@@ -1,12 +1,12 @@
 <template>
   <div
     v-if="state.current_report"
-    class="p-2 overflow-x-auto overflow-y-auto"
+    class="p-2 overflow-x-auto overflow-y-auto font-mono"
     style="max-height: 43rem"
   >
-    <div v-if="trace" class="font-mono">
+    <div v-if="trace">
       <h2 class="text-lg font-bold text-red-600">// Error</h2>
-      <pre class="py-3">{{ trace.message }}</pre>
+      <div class="py-2">{{ trace.message }}</div>
       <p class="p-1 text-gray-500">previous expressions:</p>
       <div
         v-for="(exp, index) in trace.previous"
@@ -16,10 +16,19 @@
         <pre>{{ exp.repr() }}</pre>
       </div>
     </div>
-    <pre v-else-if="state.current_report.error" class="font-mono">{{
-      state.current_report.error
-    }}</pre>
-    <pre v-else>{{ state.current_report.output }}</pre>
+    <div v-else-if="parsing_error">
+      <h2 class="text-lg font-bold text-yellow-600">// Parsing Error</h2>
+      <pre class="py-2" v-html="parsing_error.context"></pre>      
+      <pre class="py-2" v-html="parsing_error.message"></pre>
+    </div>
+    <div v-else-if="state.current_report.error">
+      <h2 class="text-lg font-bold text-pink-600">// Unknown Error</h2>
+      <pre class="py-2">{{ state.current_report.error }}</pre>
+    </div>
+    <div v-else-if="state.current_report.output">
+      <h2 class="text-lg font-bold text-blue-600">// Output</h2>
+      <pre class="py-2">{{ state.current_report.output }}</pre>
+    </div>
   </div>
 </template>
 
@@ -27,6 +36,7 @@
 import { Component, Vue, Prop, Watch } from "vue-property-decorator"
 import { StudyroomState as State } from "./studyroom-state"
 import { Trace } from "@cicada-lang/cicada"
+import pt, { ParsingError } from "@cicada-lang/partech"
 
 @Component
 export default class StudyroomReporter extends Vue {
@@ -41,6 +51,20 @@ export default class StudyroomReporter extends Vue {
     const error = this.state.current_report?.error
     if (error instanceof Trace) {
       return error
+    } else {
+      return null
+    }
+  }
+
+  get parsing_error(): null | { message: string; context?: string } {
+    const error = this.state.current_report?.error
+    if (error instanceof ParsingError) {
+      return {
+        message: error.message,
+        context: this.state.current_text
+          ? pt.report(error.span, this.state.current_text)
+          : undefined,
+      }
     } else {
       return null
     }

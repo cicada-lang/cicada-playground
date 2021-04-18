@@ -1,5 +1,3 @@
-- [studyroom-reporter] -- improve style -- for `ParsingError`
-
 - [oauth] -- `GitLab`
 - [oauth] -- `GitHub`
 
