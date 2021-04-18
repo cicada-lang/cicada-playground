@@ -1,6 +1,7 @@
 <template>
-  <div class="flex flex-col items-start">
-    <h1>Studyroom</h1>
+  <div class="flex flex-col items-start px-4 py-3 md:px-8 md:py-6">
+    <page-header />
+    <h1 class="text-xl font-bold py-2">//// Study</h1>
 
     <button>
       <router-link :to="{ path: '/entrance' }">Back</router-link>
@@ -24,6 +25,7 @@ import { GitHubLibrary } from "@/models/github-library"
 
 @Component({
   components: {
+    "page-header": () => import("@/views/page-header"),
     "studyroom-file-list": () => import("./studyroom-file-list.vue"),
     "studyroom-editor": () => import("./studyroom-editor.vue"),
     "studyroom-reporter": () => import("./studyroom-reporter.vue"),
