@@ -5,8 +5,8 @@
         :class="[
           'rounded-l-lg',
           {
-            'hover:bg-blue-100': path !== state.current_path,
-            'bg-gray-600': path === state.current_path,
+            'hover:bg-pink-100': path !== state.current_path,
+            'bg-pink-900': path === state.current_path,
             'text-white': path === state.current_path,
           },
         ]"
