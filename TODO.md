@@ -1,6 +1,6 @@
-- [studyroom-editor] -- improve style
-- [studyroom-reporter] -- improve style for `Trace`
-- [studyroom-reporter] -- improve style for `ParsingError`
+- [studyroom-editor] -- improve style -- for mobile
+- [studyroom-reporter] -- improve style -- for `Trace`
+- [studyroom-reporter] -- improve style -- for `ParsingError`
 
 - [oauth] -- `GitLab`
 - [oauth] -- `GitHub`

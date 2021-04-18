@@ -1,5 +1,11 @@
 <template>
-  <textarea v-model="state.current_text" @change="state.run()"></textarea>
+  <textarea
+    cols="80"
+    rows="32"
+    spellcheck="false"
+    v-model="state.current_text"
+    @change="state.run()"
+  ></textarea>
 </template>
 
 <script lang="ts">

@@ -21,7 +21,7 @@
       <studyroom-reporter :state="state" />
       <pre>{{ state.current_output }}</pre>
     </div>
-    <div v-else>Loading...</div>
+    <div class="p-3" v-else>Loading...</div>
   </div>
 </template>
 
