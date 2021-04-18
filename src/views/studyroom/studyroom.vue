@@ -10,19 +10,13 @@
 
     <div class="flex flex-wrap items-baseline py-2">
       <h2 class="text-xl font-bold">//// Study</h2>
-      <div class="pl-2">
-        <button class="hover:text-gray-500" @click="show_files = !show_files">
-          FILES
-        </button>
-      </div>
+      <h1 v-if="state.library" class="pl-2 text-lg font-bold text-gray-500">
+        {{ state.library.config.name }}
+      </h1>
     </div>
 
-    <h1 v-if="state.library" class="pb-2 text-lg font-bold text-gray-500">
-      {{ state.library.config.name }}
-    </h1>
-
     <div v-if="state.library" class="flex flex-wrap max-h-full">
-      <studyroom-file-list v-show="show_files" :state="state" />
+      <studyroom-file-list :state="state" />
       <studyroom-editor :state="state" />
       <studyroom-reporter :state="state" />
       <pre>{{ state.current_output }}</pre>
@@ -48,8 +42,6 @@ import { GitHubLibrary } from "@/models/github-library"
 export default class Studyroom extends Vue {
   @Prop() servant!: string
   @Prop() library_id!: string
-
-  show_files: boolean = false
 
   state = new State()
 
