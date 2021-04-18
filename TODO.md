@@ -1,4 +1,3 @@
-- [studyroom-editor] -- improve style -- for mobile
 - [studyroom-reporter] -- improve style -- for `Trace`
 - [studyroom-reporter] -- improve style -- for `ParsingError`
 

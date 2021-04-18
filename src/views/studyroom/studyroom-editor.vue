@@ -1,6 +1,7 @@
 <template>
   <textarea
-    cols="80"
+    class="max-w-2xl"
+    cols="64"
     rows="32"
     spellcheck="false"
     v-model="state.current_text"

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="state.current_report">
+  <div v-if="state.current_report"  class="overflow-x-auto">
     <pre v-if="state.current_report.error">{{
       state.current_report.error
     }}</pre>

@@ -1,5 +1,5 @@
 <template>
-  <div class="md:px-8 md:py-6 flex flex-col items-start px-4 py-3">
+  <div class="md:px-8 md:py-6 flex flex-col items-start px-4 py-3 w-screen">
     <page-header>
       <button class="hover:text-gray-500">
         <router-link :to="{ path: '/entrance' }">BACK</router-link>
@@ -19,7 +19,7 @@
       {{ state.library.config.name }}
     </h1>
 
-    <div v-if="state.library" class="flex">
+    <div v-if="state.library" class="flex flex-wrap w-full">
       <studyroom-file-list v-show="show_files" :state="state" />
       <studyroom-editor :state="state" />
       <studyroom-reporter :state="state" />
