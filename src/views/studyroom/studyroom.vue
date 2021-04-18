@@ -21,15 +21,12 @@ import { Component, Vue, Prop } from "vue-property-decorator"
 import { StudyroomState as State } from "./studyroom-state"
 import { GitLabLibrary } from "@/models/gitlab-library"
 import { GitHubLibrary } from "@/models/github-library"
-import StudyroomFileList from "./studyroom-file-list.vue"
-import StudyroomEditor from "./studyroom-editor.vue"
-import StudyroomReporter from "./studyroom-reporter.vue"
 
 @Component({
   components: {
-    StudyroomFileList,
-    StudyroomEditor,
-    StudyroomReporter,
+    "studyroom-file-list": () => import("./studyroom-file-list.vue"),
+    "studyroom-editor": () => import("./studyroom-editor.vue"),
+    "studyroom-reporter": () => import("./studyroom-reporter.vue"),
   },
 })
 export default class Studyroom extends Vue {

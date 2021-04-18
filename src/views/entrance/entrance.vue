@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col items-start">
-    <h1>Entrance</h1>
-
+  <div class="flex flex-col items-start px-8 py-6">
+    <page-header />
+    <h1 class="text-xl font-bold">// Entrance</h1>
     <entrance-form :state="state" />
     <entrance-library-list :state="state" />
   </div>
@@ -10,13 +10,12 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator"
 import { EntranceState as State } from "./entrance-state"
-import EntranceForm from "./entrance-form.vue"
-import EntranceLibraryList from "./entrance-library-list.vue"
 
 @Component({
   components: {
-    EntranceForm,
-    EntranceLibraryList,
+    "entrance-form": () => import("./entrance-form.vue"),
+    "entrance-library-list": () => import("./entrance-library-list.vue"),
+    "page-header": () => import("@/views/page-header"),
   },
 })
 export default class Entrance extends Vue {
