@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="md:px-8 md:py-6 flex flex-col items-start w-screen px-4 py-3 h-screen"
-  >
+  <div class="md:px-8 md:py-6 flex flex-col items-start px-4 py-3">
     <page-header>
       <button class="hover:text-gray-500">
         <router-link :to="{ path: '/entrance' }">BACK</router-link>
@@ -15,7 +13,10 @@
       </h1>
     </div>
 
-    <div v-if="state.library" class="flex flex-wrap max-h-full">
+    <div
+      v-if="state.library"
+      class="flex flex-col md:flex-row w-full max-h-full"
+    >
       <studyroom-file-list :state="state" />
       <studyroom-editor :state="state" />
       <studyroom-reporter :state="state" />

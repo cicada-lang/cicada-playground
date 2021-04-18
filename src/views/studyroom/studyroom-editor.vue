@@ -1,9 +1,9 @@
 <template>
   <textarea
-    class="max-w-2xl max-h-full"
+    style="min-width: 43rem; min-height: 43rem"
+    spellcheck="false"
     cols="64"
     rows="28"
-    spellcheck="false"
     v-model="state.current_text"
     @change="state.run()"
   ></textarea>
