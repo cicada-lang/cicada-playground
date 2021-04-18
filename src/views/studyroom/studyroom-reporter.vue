@@ -6,7 +6,7 @@
   >
     <div v-if="trace">
       <h2 class="text-lg font-bold text-red-600">// Error</h2>
-      <div class="py-2">{{ trace.message }}</div>
+      <pre class="py-2">{{ trace.message.trim() }}</pre>
       <p class="p-2 text-gray-500">Previous expressions:</p>
       <div
         v-for="(exp, index) in trace.previous"
