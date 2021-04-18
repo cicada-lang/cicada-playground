@@ -1,5 +1,5 @@
 <template>
-  <ul v-if="state.library" class="flex flex-col items-start">
+  <ul v-if="state.library" class="flex flex-col items-start pb-2">
     <li v-for="(text, path) in state.library.stage.files" :key="path">
       <button
         :class="[
@@ -15,7 +15,7 @@
           state.run()
         "
       >
-        <p class="pl-2 overflow-x-auto text-left" style="width: 240px">
+        <p class="pl-2 overflow-x-auto text-left md:w-64">
           {{ path }}
         </p>
       </button>
