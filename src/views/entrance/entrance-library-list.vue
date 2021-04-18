@@ -7,8 +7,7 @@
         @click="select(library)"
         class="hover:text-gray-500 flex p-1"
       >
-        <p>{{ library.servant }}:</p>
-        <p>{{ library.library_id }}</p>
+        <p>- {{ library.servant }}:{{ library.library_id }}</p>
       </li>
     </ul>
   </div>

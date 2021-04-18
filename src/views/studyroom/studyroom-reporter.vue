@@ -5,7 +5,7 @@
     style="max-height: 43rem"
   >
     <div v-if="trace">
-      <h2 class="text-lg font-bold text-red-600">// Error</h2>
+      <h2 class="text-lg font-bold text-red-600">// 錯誤 / Error</h2>
       <pre class="py-2">{{ trace.message.trim() }}</pre>
       <p class="p-2 text-gray-500">Previous expressions:</p>
       <div
@@ -17,16 +17,16 @@
       </div>
     </div>
     <div v-else-if="parsing_error">
-      <h2 class="text-lg font-bold text-yellow-600">// Parsing Error</h2>
+      <h2 class="text-lg font-bold text-yellow-600">// 語法錯誤 / Syntax Error</h2>
       <pre class="py-2" v-html="parsing_error.context"></pre>
       <pre class="py-2" v-html="parsing_error.message"></pre>
     </div>
     <div v-else-if="state.current_report.error">
-      <h2 class="text-lg font-bold text-pink-600">// Unknown Error</h2>
+      <h2 class="text-lg font-bold text-pink-600">// 未知錯誤 / Unknown Error</h2>
       <pre class="py-2">{{ state.current_report.error }}</pre>
     </div>
     <div v-else-if="state.current_report.output">
-      <h2 class="text-lg font-bold text-blue-600">// Output</h2>
+      <h2 class="text-lg font-bold text-blue-600">// 輸出 / Output</h2>
       <pre class="py-2">{{ state.current_report.output }}</pre>
     </div>
   </div>

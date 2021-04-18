@@ -3,7 +3,7 @@
     <page-header />
 
     <div class="flex flex-wrap items-baseline py-2">
-      <h2 class="text-xl font-bold">//// Study</h2>
+      <h2 class="text-xl font-bold">//// 學習 / Study</h2>
       <h1 v-if="state.library" class="pl-3 text-lg font-bold text-gray-500">
         {{ state.library.config.name }}
       </h1>
@@ -18,7 +18,7 @@
       <studyroom-reporter :state="state" />
       <pre>{{ state.current_output }}</pre>
     </div>
-    <div class="p-3" v-else>Loading...</div>
+    <div class="p-3 border border-gray-400 rounded-md" v-else>加載中 / Loading ...</div>
   </div>
 </template>
 
