@@ -1,8 +1,8 @@
 <template>
   <textarea
-    class="max-w-2xl"
+    class="max-w-2xl max-h-full"
     cols="64"
-    rows="32"
+    rows="28"
     spellcheck="false"
     v-model="state.current_text"
     @change="state.run()"

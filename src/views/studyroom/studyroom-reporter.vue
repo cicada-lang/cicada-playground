@@ -1,5 +1,9 @@
 <template>
-  <div v-if="state.current_report" class="overflow-x-auto">
+  <div
+    v-if="state.current_report"
+    class="max-w-xl overflow-x-auto overflow-y-auto p-2"
+    style="max-height: 43rem"
+  >
     <pre v-if="state.current_report.error">{{
       state.current_report.error
     }}</pre>
