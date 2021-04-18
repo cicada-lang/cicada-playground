@@ -1,4 +1,3 @@
-- [studyroom-reporter] -- improve style -- for `Trace`
 - [studyroom-reporter] -- improve style -- for `ParsingError`
 
 - [oauth] -- `GitLab`
