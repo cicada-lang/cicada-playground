@@ -1,19 +1,26 @@
 <template>
-  <div v-if="state.library" class="flex">
-    <ul>
-      <li v-for="(text, path) in state.library.stage.files" :key="path">
-        <button
-          :class="{ 'bg-gray-200': path === state.current_path }"
-          @click="
-            state.current_path = path
-            state.run()
-          "
-        >
+  <ul v-if="state.library" class="flex flex-col items-start">
+    <li v-for="(text, path) in state.library.stage.files" :key="path">
+      <button
+        :class="[
+          'rounded-l-lg',
+          {
+            'hover:bg-blue-100': path !== state.current_path,
+            'bg-gray-600': path === state.current_path,
+            'text-white': path === state.current_path,
+          },
+        ]"
+        @click="
+          state.current_path = path
+          state.run()
+        "
+      >
+        <p class="pl-2 overflow-x-auto text-left" style="width: 240px">
           {{ path }}
-        </button>
-      </li>
-    </ul>
-  </div>
+        </p>
+      </button>
+    </li>
+  </ul>
 </template>
 
 <script lang="ts">

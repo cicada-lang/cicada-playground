@@ -1,4 +1,4 @@
-- [studyroom-file-list] -- improve style
+- [studyroom-editor] -- improve style
 - [studyroom-reporter] -- improve style for `Trace`
 - [studyroom-reporter] -- improve style for `ParsingError`
 

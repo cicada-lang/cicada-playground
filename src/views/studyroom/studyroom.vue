@@ -6,10 +6,17 @@
       </button>
     </page-header>
 
-    <h1 class="text-xl font-bold py-2">//// Study</h1>
+    <div class="flex py-2 items-baseline">
+      <h1 class="text-xl font-bold">//// Study</h1>
+      <div class="pl-2">
+        <button class="hover:text-gray-500" @click="show_files = !show_files">
+          FILES
+        </button>
+      </div>
+    </div>
 
     <div v-if="state.library" class="flex">
-      <studyroom-file-list :state="state" />
+      <studyroom-file-list v-show="show_files" :state="state" />
       <studyroom-editor :state="state" />
       <studyroom-reporter :state="state" />
       <pre>{{ state.current_output }}</pre>
@@ -35,6 +42,8 @@ import { GitHubLibrary } from "@/models/github-library"
 export default class Studyroom extends Vue {
   @Prop() servant!: string
   @Prop() library_id!: string
+
+  show_files: boolean = false
 
   state = new State()
 
