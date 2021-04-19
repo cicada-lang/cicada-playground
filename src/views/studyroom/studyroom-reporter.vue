@@ -46,9 +46,20 @@ import { StudyroomState as State } from "./studyroom-state"
 export default class StudyroomReporter extends Vue {
   @Prop() state!: State
 
-  @Watch("state.current_text")
-  async update_output(): Promise<void> {
-    await this.state.run()
+  runId: null | number = null
+
+  @Watch("state.text", { immediate: true })
+  async run(): Promise<void> {
+    const delay = 600
+
+    if (this.runId !== null) {
+      window.clearTimeout(this.runId)
+      this.runId = null
+    }
+
+    this.runId = window.setTimeout(async () => {
+      await this.state.run()
+    }, delay)
   }
 }
 </script>

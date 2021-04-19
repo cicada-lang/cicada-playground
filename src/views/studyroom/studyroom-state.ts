@@ -34,13 +34,13 @@ export class StudyroomState {
     }
   }
 
-  get current_text(): null | string {
+  get text(): null | string {
     if (!this.library) return null
     if (!this.path) return null
     return this.library.stage.files[this.path] || null
   }
 
-  set current_text(text: null | string) {
+  set text(text: null | string) {
     if (!text) return
     if (!this.library) return
     if (!this.path) return
@@ -66,9 +66,7 @@ export class StudyroomState {
         this.report = {
           syntax_error: {
             message: error.message.trim(),
-            context: this.current_text
-              ? pt.report(error.span, this.current_text)
-              : undefined,
+            context: this.text ? pt.report(error.span, this.text) : undefined,
           },
         }
       } else {

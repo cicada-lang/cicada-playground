@@ -5,7 +5,7 @@
     spellcheck="false"
     cols="64"
     rows="28"
-    v-model="state.current_text"
+    v-model="state.text"
     @change="state.run()"
   ></textarea>
 </template>

@@ -49,6 +49,7 @@ export default class Studyroom extends Vue {
 
   async mounted(): Promise<void> {
     await this.load_git_library()
+    await this.state.init()
   }
 
   async load_git_library(): Promise<void> {
@@ -59,8 +60,6 @@ export default class Studyroom extends Vue {
     if (this.servant === "gitlab") {
       this.state.library = await GitLabLibrary.create(this.library_id)
     }
-
-    await this.state.init()
   }
 }
 </script>
