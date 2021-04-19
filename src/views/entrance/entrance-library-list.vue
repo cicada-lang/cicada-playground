@@ -1,6 +1,6 @@
 <template>
   <div class="py-2">
-    <h2 class="text-lg font-bold">// 諸文库 / Library List</h2>
+    <h2 class="text-lg font-bold">// 诸文库 / Library List</h2>
     <ul class="flex flex-col items-start p-2">
       <li
         v-for="library in state.library_list"
