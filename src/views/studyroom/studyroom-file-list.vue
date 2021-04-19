@@ -10,13 +10,13 @@
           'w-full',
           'rounded-l-lg',
           {
-            'hover:bg-pink-100': path !== state.current_path,
-            'bg-pink-900': path === state.current_path,
-            'text-white': path === state.current_path,
+            'hover:bg-pink-100': path !== state.path,
+            'bg-pink-900': path === state.path,
+            'text-white': path === state.path,
           },
         ]"
         @click="
-          state.current_path = path
+          state.path = path
           state.run()
         "
       >
