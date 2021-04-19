@@ -25,5 +25,17 @@ export default class EntranceLibraryList extends Vue {
     this.state.servant = library.servant
     this.state.library_id = library.library_id
   }
+
+  mounted(): void {
+    this.init_library_list()
+  }
+
+  init_library_list(): void {
+    this.state.library_list = [
+      { servant: "github", library_id: "cicada-lang/cicada-stdlib" },
+      { servant: "gitlab", library_id: "cicada-lang/cicada-stdlib" },
+      { servant: "github", library_id: "xieyuheng/the-little-typer" },
+    ]
+  }
 }
 </script>

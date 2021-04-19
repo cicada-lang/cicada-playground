@@ -21,16 +21,5 @@ import { EntranceState as State } from "./entrance-state"
 })
 export default class Entrance extends Vue {
   state = new State()
-
-  mounted(): void {
-    this.init_library_list()
-  }
-
-  init_library_list(): void {
-    this.state.library_list = [
-      { servant: "github", library_id: "cicada-lang/cicada-stdlib" },
-      { servant: "gitlab", library_id: "cicada-lang/cicada-stdlib" },
-    ]
-  }
 }
 </script>
