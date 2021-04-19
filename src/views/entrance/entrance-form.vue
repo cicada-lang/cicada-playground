@@ -8,13 +8,13 @@
       </label>
 
       <label class="flex items-baseline justify-between py-1">
-        <p class="px-2">文庫 / library</p>
+        <p class="px-2">文库 / library</p>
         <input required type="text" v-model="state.library_id" />
       </label>
 
       <div class="flex justify-end">
         <button class="hover:text-gray-500 py-1" type="submit">
-          <p class="font-bold">進入 / ENTER</p>
+          <p class="font-bold">进入 / ENTER</p>
         </button>
       </div>
     </form>

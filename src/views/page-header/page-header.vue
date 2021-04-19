@@ -2,7 +2,7 @@
   <div class="flex">
     <div class="flex py-1 text-lg font-bold">
       <router-link :to="{ path: '/' }">
-        <p>蟬語學習室 / Cicada Studyroom</p>
+        <p>蝉语学习室 / Cicada Studyroom</p>
       </router-link>
     </div>
     <div class="flex pl-2">

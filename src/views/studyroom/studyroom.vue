@@ -3,7 +3,7 @@
     <page-header />
 
     <div class="flex flex-wrap items-baseline py-2">
-      <h2 class="text-xl font-bold">//// 學習 / Study</h2>
+      <h2 class="text-xl font-bold">//// 学习 / Study</h2>
       <h1
         v-if="state.library"
         class="pt-1 pl-3 text-lg font-bold text-gray-500"

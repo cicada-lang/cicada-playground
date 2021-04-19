@@ -6,7 +6,7 @@
   >
     <div v-if="state.current_report.semantic_error">
       <h2 class="text-lg font-bold text-red-600">
-        // 語義錯誤 / Semantic Error
+        // 语义错误 / Semantic Error
       </h2>
       <pre class="py-2">{{ state.current_report.semantic_error.message }}</pre>
       <p class="p-2 text-gray-500">Previous expressions:</p>
@@ -21,7 +21,7 @@
     </div>
     <div v-else-if="state.current_report.syntax_error">
       <h2 class="text-lg font-bold text-yellow-600">
-        // 語法錯誤 / Syntax Error
+        // 语法错误 / Syntax Error
       </h2>
       <pre
         class="py-2"
@@ -34,12 +34,12 @@
     </div>
     <div v-else-if="state.current_report.unknown_error">
       <h2 class="text-lg font-bold text-pink-600">
-        // 未知錯誤 / Unknown Error
+        // 未知错误 / Unknown Error
       </h2>
       <pre class="py-2">{{ state.current_report.unknown_error }}</pre>
     </div>
     <div v-else-if="state.current_report.output">
-      <h2 class="text-lg font-bold text-blue-600">// 輸出 / Output</h2>
+      <h2 class="text-lg font-bold text-blue-600">// 输出 / Output</h2>
       <pre class="py-2">{{ state.current_report.output }}</pre>
     </div>
   </div>
