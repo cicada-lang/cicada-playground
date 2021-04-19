@@ -1,1 +1,1 @@
-# cicada-studyroom
+# 蟬語學習室 / Cicada Studyroom
