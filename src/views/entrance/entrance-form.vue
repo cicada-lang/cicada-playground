@@ -8,7 +8,7 @@
       </label>
 
       <label class="flex items-baseline justify-between py-1">
-        <p class="px-2">書館 / library</p>
+        <p class="px-2">文庫 / library</p>
         <input required type="text" v-model="state.library_id" />
       </label>
 
