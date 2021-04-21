@@ -1,5 +1,3 @@
-import { LibraryConfig } from "@cicada-lang/cicada"
-
 export class Checkout {
   files: Record<string, string>
 
