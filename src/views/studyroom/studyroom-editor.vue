@@ -1,6 +1,6 @@
 <template>
   <textarea
-    class="md:min-w-max md:text-base font-mono text-sm"
+    class="md:min-w-max md:text-base font-mono text-sm whitespace-pre"
     style="min-height: 43rem"
     spellcheck="false"
     cols="64"
