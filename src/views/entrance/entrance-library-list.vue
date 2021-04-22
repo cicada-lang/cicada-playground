@@ -1,6 +1,6 @@
 <template>
   <div class="py-2">
-    <h2 class="text-lg font-bold">// 诸文库 / Library List</h2>
+    <h2 class="py-2 text-lg font-bold">// 诸文库 / Library List</h2>
     <ul class="flex flex-col items-start p-2">
       <li
         v-for="library in state.library_list"
@@ -17,8 +17,10 @@
 import { Component, Vue, Prop } from "vue-property-decorator"
 import { EntranceState as State } from "./entrance-state"
 
-@Component
-export default class EntranceLibraryList extends Vue {
+@Component({
+  name: "entrance-library-list",
+})
+export default class extends Vue {
   @Prop() state!: State
 
   select(library: { servant: string; library_id: string }): void {

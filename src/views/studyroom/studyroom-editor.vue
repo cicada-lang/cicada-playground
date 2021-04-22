@@ -1,6 +1,6 @@
 <template>
   <textarea
-    class="md:min-w-max font-mono"
+    class="md:min-w-max md:text-base font-mono text-sm"
     style="min-height: 43rem"
     spellcheck="false"
     cols="64"
@@ -14,8 +14,10 @@
 import { Component, Vue, Prop } from "vue-property-decorator"
 import { StudyroomState as State } from "./studyroom-state"
 
-@Component
-export default class StudyroomEditor extends Vue {
+@Component({
+  name: "studyroom-editor",
+})
+export default class extends Vue {
   @Prop() state!: State
 }
 </script>

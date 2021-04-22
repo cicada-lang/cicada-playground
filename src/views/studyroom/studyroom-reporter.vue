@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="state.report"
-    class="p-2 overflow-x-auto overflow-y-auto font-mono text-sm"
+    class="md:text-base p-2 overflow-x-auto overflow-y-auto font-mono text-sm"
     style="max-height: 43rem"
   >
     <div v-if="state.report.semantic_error">
@@ -42,8 +42,10 @@
 import { Component, Vue, Prop, Watch } from "vue-property-decorator"
 import { StudyroomState as State } from "./studyroom-state"
 
-@Component
-export default class StudyroomReporter extends Vue {
+@Component({
+  name: "studyroom-reporter",
+})
+export default class extends Vue {
   @Prop() state!: State
 
   runId: null | number = null

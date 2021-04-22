@@ -32,8 +32,10 @@
 import { Component, Vue, Prop } from "vue-property-decorator"
 import { StudyroomState as State } from "./studyroom-state"
 
-@Component
-export default class StudyroomFileList extends Vue {
+@Component({
+  name: "studyroom-file-list",
+})
+export default class extends Vue {
   @Prop() state!: State
 }
 </script>

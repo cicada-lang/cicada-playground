@@ -14,6 +14,8 @@
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator"
 
-@Component
-export default class PageHeader extends Vue {}
+@Component({
+  name: "page-header",
+})
+export default class extends Vue {}
 </script>

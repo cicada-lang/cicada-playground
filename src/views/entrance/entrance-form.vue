@@ -1,6 +1,6 @@
 <template>
   <div class="py-2">
-    <h2 class="text-lg font-bold">// 填表 / Form</h2>
+    <h2 class="py-2 text-lg font-bold">// 填表 / Form</h2>
     <form @submit.prevent="enter" class="flex flex-col">
       <label class="flex items-baseline justify-between py-1">
         <p class="px-2">侍者 / servant</p>
@@ -25,8 +25,10 @@
 import { Component, Vue, Prop } from "vue-property-decorator"
 import { EntranceState as State } from "./entrance-state"
 
-@Component
-export default class EntranceForm extends Vue {
+@Component({
+  name: "entrance-form",
+})
+export default class extends Vue {
   @Prop() state!: State
 
   enter(): void {

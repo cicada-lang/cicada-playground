@@ -2,7 +2,7 @@
   <div class="md:px-6 md:py-4 flex flex-col items-start p-2">
     <page-header />
 
-    <div class="flex flex-wrap items-baseline py-2">
+    <div class="flex flex-wrap items-baseline py-3">
       <h2 class="text-xl font-bold">//// 学习 / Study</h2>
       <h1
         v-if="state.library"
@@ -19,11 +19,12 @@
       <studyroom-file-list :state="state" />
       <studyroom-editor :state="state" />
       <studyroom-reporter :state="state" />
-      <pre>{{ state.current_output }}</pre>
     </div>
     <div class="p-3 border border-gray-400 rounded-md" v-else>
       加載中 / Loading ...
     </div>
+
+    <page-footer />
   </div>
 </template>
 
@@ -34,14 +35,16 @@ import { GitLabLibrary } from "@/models/gitlab-library"
 import { GitHubLibrary } from "@/models/github-library"
 
 @Component({
+  name: "studyroom",
   components: {
     "page-header": () => import("@/views/page-header"),
+    "page-footer": () => import("@/views/page-footer"),
     "studyroom-file-list": () => import("./studyroom-file-list.vue"),
     "studyroom-editor": () => import("./studyroom-editor.vue"),
     "studyroom-reporter": () => import("./studyroom-reporter.vue"),
   },
 })
-export default class Studyroom extends Vue {
+export default class extends Vue {
   @Prop() servant!: string
   @Prop() library_id!: string
 
