@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="state.report"
-    class="md:text-base w-full p-2 overflow-x-auto overflow-y-auto font-mono text-sm border border-gray-400"
+    class="md:text-base md:my-0 w-full p-2 my-2 overflow-x-auto overflow-y-auto font-mono text-sm border border-gray-400"
     style="max-height: 43rem"
   >
     <div v-if="state.report.semantic_error">
