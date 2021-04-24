@@ -70,6 +70,21 @@ export class GitHubLibrary implements GitLibrary {
     })
   }
 
+  async fetch_files(): Promise<Record<string, string>> {
+    return await checkout({
+      requester: this.requester,
+      owner: this.owner,
+      repo: this.repo,
+      dir: this.dir,
+      config: this.config,
+    })
+  }
+
+  async fetch_file(path: string): Promise<string> {
+    const files = await this.fetch_files()
+    return files[path]
+  }
+
   async reload(path: string): Promise<Module> {
     this.cached_mods.delete(path)
     return await this.load(path)
@@ -97,19 +112,10 @@ export class GitHubLibrary implements GitLibrary {
     return mod
   }
 
-  async fetch_files(): Promise<Map<string, string>> {
-    return new Map(Object.entries(this.files))
-  }
-
   async load_mods(): Promise<Map<string, Module>> {
-    const files = await this.fetch_files()
-    const paths = Array.from(files.keys())
+    const paths = Object.keys(this.files)
     await Promise.all(paths.map((path) => this.load(path)))
     return this.cached_mods
-  }
-
-  async commit(): Promise<void> {
-    throw new Error("TODO")
   }
 }
 

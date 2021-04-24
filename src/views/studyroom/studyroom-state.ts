@@ -28,8 +28,7 @@ export class StudyroomState {
 
   async init(): Promise<void> {
     if (this.library) {
-      const files = await this.library.fetch_files()
-      const paths = Array.from(files.keys())
+      const paths = Object.keys(this.library.files)
       this.path = paths[0] || null
     }
   }
