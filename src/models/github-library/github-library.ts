@@ -58,7 +58,8 @@ export class GitHubLibrary implements GitLibrary {
     })
 
     const files =
-      opts.files || (await checkout({ requester, owner, repo, dir, config }))
+      opts.files ||
+      (await checkout_files({ requester, owner, repo, dir, config }))
 
     return new GitHubLibrary({
       requester,
@@ -71,7 +72,7 @@ export class GitHubLibrary implements GitLibrary {
   }
 
   async fetch_files(): Promise<Record<string, string>> {
-    return await checkout({
+    return await checkout_files({
       requester: this.requester,
       owner: this.owner,
       repo: this.repo,
@@ -146,7 +147,7 @@ async function create_config(opts: {
   return new LibraryConfig(JSON.parse(text))
 }
 
-async function checkout(opts: {
+async function checkout_files(opts: {
   requester: Octokit
   owner: string
   repo: string

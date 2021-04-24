@@ -52,7 +52,8 @@ export class GitLabLibrary implements GitLibrary {
     })
 
     const files =
-      opts.files || (await checkout({ requester, library_id, dir, config }))
+      opts.files ||
+      (await checkout_files({ requester, library_id, dir, config }))
 
     return new GitLabLibrary({
       requester,
@@ -92,7 +93,7 @@ export class GitLabLibrary implements GitLibrary {
   }
 
   async fetch_files(): Promise<Record<string, string>> {
-    return await checkout({
+    return await checkout_files({
       requester: this.requester,
       library_id: this.library_id,
       dir: this.dir,
@@ -141,7 +142,7 @@ async function create_config(opts: {
   return new LibraryConfig(JSON.parse(text))
 }
 
-async function checkout(opts: {
+async function checkout_files(opts: {
   requester: InstanceType<typeof Gitlab>
   library_id: string | number
   dir: string
