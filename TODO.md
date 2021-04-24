@@ -1,6 +1,6 @@
-- [model] about oauth
-- [model] person & team
-- [view] person-dashboard & team-dashboard
+- [model] about oauth -- optional oauth to import library and commit changes
+- [model] person
+- [view] person-dashboard -- library list
 
 - [oauth] -- `GitLab`
 - [oauth] -- `GitHub`
