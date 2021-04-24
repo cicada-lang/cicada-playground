@@ -102,8 +102,12 @@ export class GitLabLibrary implements GitLibrary {
   }
 
   async fetch_file(path: string): Promise<string> {
-    const files = await this.fetch_files()
-    return files[path]
+    return await checkout_file(path, {
+      requester: this.requester,
+      library_id: this.library_id,
+      dir: this.dir,
+      config: this.config,
+    })
   }
 
   async load_mods(): Promise<Map<string, Module>> {
@@ -165,17 +169,31 @@ async function checkout_files(opts: {
 
   const files = Object.fromEntries(
     await Promise.all(
-      paths.map(async (path) => {
-        const file_entry = await requester.RepositoryFiles.show(
-          library_id,
-          normalize_file(`${dir}/${config.src}/${path}`),
-          "master"
-        )
-        const text = Base64.decode(file_entry.content)
-        return [path, text]
-      })
+      paths.map(async (path) => [path, await checkout_file(path, opts)])
     )
   )
 
   return files
+}
+
+async function checkout_file(
+  path: string,
+  opts: {
+    requester: InstanceType<typeof Gitlab>
+    library_id: string | number
+    dir: string
+    config: LibraryConfig
+  }
+): Promise<string> {
+  const { requester, library_id, dir, config } = opts
+
+  const file_entry = await requester.RepositoryFiles.show(
+    library_id,
+    normalize_file(`${dir}/${config.src}/${path}`),
+    "master"
+  )
+
+  const text = Base64.decode(file_entry.content)
+
+  return text
 }
