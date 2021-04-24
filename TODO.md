@@ -1,3 +1,5 @@
+- [view] `home` about the project
+
 - [model] person
 - [view] person-dashboard -- library list
 
