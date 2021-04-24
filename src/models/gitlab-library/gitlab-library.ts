@@ -1,4 +1,4 @@
-import { GitLibrary, Stage, Checkout } from "@/models/git-library"
+import { GitLibrary } from "@/models/git-library"
 import { LibraryConfig, Module, Syntax } from "@cicada-lang/cicada"
 import { Gitlab } from "@gitbeaker/browser"
 import { Base64 } from "js-base64"
@@ -10,8 +10,7 @@ export class GitLabLibrary implements GitLibrary {
   host: string
   library_id: string | number
   dir: string
-  checkout: Checkout
-  stage: Stage
+  files: Record<string, string>
 
   constructor(opts: {
     requester: InstanceType<typeof Gitlab>
@@ -20,8 +19,7 @@ export class GitLabLibrary implements GitLibrary {
     host: string
     library_id: string | number
     dir: string
-    checkout: Checkout
-    stage: Stage
+    files: Record<string, string>
   }) {
     this.requester = opts.requester
     this.config = opts.config
@@ -29,8 +27,7 @@ export class GitLabLibrary implements GitLibrary {
     this.host = opts.host
     this.library_id = opts.library_id
     this.dir = opts.dir
-    this.checkout = opts.checkout
-    this.stage = opts.stage
+    this.files = opts.files
   }
 
   static async create(
@@ -39,12 +36,12 @@ export class GitLabLibrary implements GitLibrary {
       host?: string
       token?: string
       dir?: string
-      stage?: Stage
+      files?: Record<string, string>
     } = {}
   ): Promise<GitLabLibrary> {
     const host = opts.host || "https://gitlab.com"
     const dir = opts.dir || ""
-    const { token, stage } = opts
+    const { token } = opts
 
     const requester = new Gitlab({ host, token })
 
@@ -54,12 +51,8 @@ export class GitLabLibrary implements GitLibrary {
       dir,
     })
 
-    const checkout = await create_checkout({
-      requester,
-      library_id,
-      dir,
-      config,
-    })
+    const files =
+      opts.files || (await checkout({ requester, library_id, dir, config }))
 
     return new GitLabLibrary({
       requester,
@@ -67,8 +60,7 @@ export class GitLabLibrary implements GitLibrary {
       host,
       library_id,
       dir,
-      checkout,
-      stage: stage || Stage.from_checkout(checkout),
+      files,
     })
   }
 
@@ -83,7 +75,7 @@ export class GitLabLibrary implements GitLibrary {
       return cached
     }
 
-    const text = this.stage.files[path]
+    const text = this.files[path]
     if (!text) {
       throw new Error(`Unknown path: ${path}`)
     }
@@ -100,7 +92,7 @@ export class GitLabLibrary implements GitLibrary {
   }
 
   async fetch_files(): Promise<Map<string, string>> {
-    return new Map(Object.entries(this.stage.files))
+    return new Map(Object.entries(this.files))
   }
 
   async load_mods(): Promise<Map<string, Module>> {
@@ -144,12 +136,12 @@ async function create_config(opts: {
   return new LibraryConfig(JSON.parse(text))
 }
 
-async function create_checkout(opts: {
+async function checkout(opts: {
   requester: InstanceType<typeof Gitlab>
   library_id: string | number
   dir: string
   config: LibraryConfig
-}): Promise<Checkout> {
+}): Promise<Record<string, string>> {
   const { requester, library_id, dir, config } = opts
 
   const entries = (await requester.Repositories.tree(library_id, {
@@ -179,5 +171,5 @@ async function create_checkout(opts: {
     )
   )
 
-  return new Checkout({ files })
+  return files
 }

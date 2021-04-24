@@ -1,7 +1,7 @@
 <template>
   <ul v-if="state.library" class="flex flex-col items-start pb-2">
     <li
-      v-for="(text, path) in state.library.stage.files"
+      v-for="(text, path) in state.library.files"
       :key="path"
       class="w-full border-b border-gray-300"
     >

@@ -37,14 +37,14 @@ export class StudyroomState {
   get text(): null | string {
     if (!this.library) return null
     if (!this.path) return null
-    return this.library.stage.files[this.path] || null
+    return this.library.files[this.path] || null
   }
 
   set text(text: null | string) {
     if (!text) return
     if (!this.library) return
     if (!this.path) return
-    this.library.stage.files[this.path] = text
+    this.library.files[this.path] = text
   }
 
   async run(): Promise<void> {

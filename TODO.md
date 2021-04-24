@@ -1,4 +1,4 @@
-- [model] async `checkout` -- for library list will not need the `stage`
+- [model] for oauth
 
 - [oauth] -- `GitLab`
 - [oauth] -- `GitHub`

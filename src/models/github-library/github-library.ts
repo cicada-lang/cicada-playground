@@ -1,4 +1,4 @@
-import { GitLibrary, Stage, Checkout } from "@/models/git-library"
+import { GitLibrary } from "@/models/git-library"
 import { LibraryConfig, Module, Syntax } from "@cicada-lang/cicada"
 import { Octokit } from "@octokit/rest"
 import { Base64 } from "js-base64"
@@ -10,8 +10,7 @@ export class GitHubLibrary implements GitLibrary {
   owner: string
   repo: string
   dir: string
-  checkout: Checkout
-  stage: Stage
+  files: Record<string, string>
 
   constructor(opts: {
     requester: Octokit
@@ -20,8 +19,7 @@ export class GitHubLibrary implements GitLibrary {
     owner: string
     repo: string
     dir: string
-    checkout: Checkout
-    stage: Stage
+    files: Record<string, string>
   }) {
     this.requester = opts.requester
     this.config = opts.config
@@ -29,8 +27,7 @@ export class GitHubLibrary implements GitLibrary {
     this.owner = opts.owner
     this.repo = opts.repo
     this.dir = opts.dir
-    this.checkout = opts.checkout
-    this.stage = opts.stage
+    this.files = opts.files
   }
 
   static async create(
@@ -38,10 +35,10 @@ export class GitHubLibrary implements GitLibrary {
     opts: {
       token?: string
       dir?: string
-      stage?: Stage
+      files?: Record<string, string>
     } = {}
   ): Promise<GitHubLibrary> {
-    const { token, stage } = opts
+    const { token } = opts
     const dir = opts.dir || ""
     const { owner, repo } =
       typeof library_id === "string"
@@ -60,13 +57,8 @@ export class GitHubLibrary implements GitLibrary {
       dir,
     })
 
-    const checkout = await create_checkout({
-      requester,
-      owner,
-      repo,
-      dir,
-      config,
-    })
+    const files =
+      opts.files || (await checkout({ requester, owner, repo, dir, config }))
 
     return new GitHubLibrary({
       requester,
@@ -74,8 +66,7 @@ export class GitHubLibrary implements GitLibrary {
       owner,
       repo,
       dir,
-      checkout,
-      stage: stage || Stage.from_checkout(checkout),
+      files,
     })
   }
 
@@ -90,7 +81,7 @@ export class GitHubLibrary implements GitLibrary {
       return cached
     }
 
-    const text = this.stage.files[path]
+    const text = this.files[path]
     if (!text) {
       throw new Error(`Unknown path: ${path}`)
     }
@@ -107,7 +98,7 @@ export class GitHubLibrary implements GitLibrary {
   }
 
   async fetch_files(): Promise<Map<string, string>> {
-    return new Map(Object.entries(this.stage.files))
+    return new Map(Object.entries(this.files))
   }
 
   async load_mods(): Promise<Map<string, Module>> {
@@ -149,13 +140,13 @@ async function create_config(opts: {
   return new LibraryConfig(JSON.parse(text))
 }
 
-async function create_checkout(opts: {
+async function checkout(opts: {
   requester: Octokit
   owner: string
   repo: string
   dir: string
   config: LibraryConfig
-}): Promise<Checkout> {
+}): Promise<Record<string, string>> {
   const { requester, owner, repo, dir, config } = opts
 
   const { data: entries } = await requester.rest.repos.getContent({
@@ -206,5 +197,5 @@ async function create_checkout(opts: {
     )
   )
 
-  return new Checkout({ files })
+  return files
 }
