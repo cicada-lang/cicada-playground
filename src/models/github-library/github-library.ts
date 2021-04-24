@@ -82,8 +82,13 @@ export class GitHubLibrary implements GitLibrary {
   }
 
   async fetch_file(path: string): Promise<string> {
-    const files = await this.fetch_files()
-    return files[path]
+    return await checkout_file(path, {
+      requester: this.requester,
+      owner: this.owner,
+      repo: this.repo,
+      dir: this.dir,
+      config: this.config,
+    })
   }
 
   async reload(path: string): Promise<Module> {
@@ -188,21 +193,37 @@ async function checkout_files(opts: {
           (entry) => entry.type === "blob" && entry.path?.endsWith(".cic")
         )
         .map(async (entry) => {
-          const path = `${dir}/${config.src}/${entry.path}`
-          const { data } = await requester.rest.repos.getContent({
-            owner,
-            repo,
-            path,
-          })
-          if ("content" in data) {
-            const text = Base64.decode(data.content)
-            return [entry.path, text]
-          } else {
-            throw new Error(`git blob should have content`)
-          }
+          const path = entry.path as string
+          return [path, await checkout_file(path, opts)]
         })
     )
   )
 
   return files
+}
+
+async function checkout_file(
+  path: string,
+  opts: {
+    requester: Octokit
+    owner: string
+    repo: string
+    dir: string
+    config: LibraryConfig
+  }
+): Promise<string> {
+  const { requester, owner, repo, dir, config } = opts
+
+  const { data } = await requester.rest.repos.getContent({
+    owner,
+    repo,
+    path: `${dir}/${config.src}/${path}`,
+  })
+
+  if (!("content" in data)) {
+    throw new Error(`git blob should have content`)
+  }
+
+  const text = Base64.decode(data.content)
+  return text
 }

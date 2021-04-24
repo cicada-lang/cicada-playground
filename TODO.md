@@ -1,5 +1,3 @@
-- [refactor] `GitHubLibrary.checkout_file`
-
 - [model] for oauth
 
 - [oauth] -- `GitLab`
