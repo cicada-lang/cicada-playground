@@ -1,6 +1,10 @@
-- [model] about oauth -- optional oauth to import library and commit changes
 - [model] person
 - [view] person-dashboard -- library list
+
+- [refactor] extract `GitLabClient`
+- [refactor] extract `GitHubClient`
+
+- [model] about oauth -- optional oauth to commit changes
 
 - [oauth] -- `GitLab`
 - [oauth] -- `GitHub`

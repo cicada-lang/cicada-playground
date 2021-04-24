@@ -2,14 +2,14 @@
   <div class="text-gray-500">
     <h1 class="md:pt-6 py-2 text-lg font-bold">//// 后记 / Afterword</h1>
 
-    <div class="p-2">
+    <div class="py-2 px-3">
       <div class="flex py-1">
-        <p>- 日期</p>
+        <p>日期</p>
         <p class="px-2">2021-04-22</p>
       </div>
 
       <div class="flex py-1">
-        <p>- 制者</p>
+        <p>制者</p>
         <a href="https://inner-universe.now.sh/" target="_blank">
           <p class="hover:text-gray-700 px-2">谢宇恒</p>
         </a>
