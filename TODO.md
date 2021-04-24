@@ -1,6 +1,8 @@
 - [model] person
 - [view] person-dashboard -- library list
 
+- [view] `entrance` 诸人物
+
 - [refactor] extract `GitLabClient`
 - [refactor] extract `GitHubClient`
 
