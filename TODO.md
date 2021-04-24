@@ -1,4 +1,6 @@
-- [model] for oauth
+- [model] about oauth
+- [model] person & team
+- [view] person-dashboard & team-dashboard
 
 - [oauth] -- `GitLab`
 - [oauth] -- `GitHub`
