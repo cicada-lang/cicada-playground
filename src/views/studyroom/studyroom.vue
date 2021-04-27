@@ -21,7 +21,7 @@
       <studyroom-reporter :state="state" />
     </div>
     <div class="p-3 border border-gray-400 rounded-md" v-else>
-      加載中 / Loading ...
+      加载中 / Loading ...
     </div>
 
     <page-footer />
