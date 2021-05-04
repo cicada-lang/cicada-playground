@@ -12,9 +12,9 @@
     "trailingComma": "es5"
   },
   "dependencies": {
-    "@cicada-lang/cicada": "^0.1.15",
+    "@cicada-lang/cicada": "^0.1.17",
     "@cicada-lang/partech": "^0.1.2",
-    "@gitbeaker/browser": "^28.3.0",
+    "@gitbeaker/browser": "^28.4.1",
     "@octokit/core": "^3.4.0",
     "@octokit/rest": "^18.5.3",
     "@tailwindcss/forms": "^0.3.2",
