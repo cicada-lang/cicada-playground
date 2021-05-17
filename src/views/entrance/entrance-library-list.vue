@@ -35,7 +35,6 @@ export default class extends Vue {
   init_library_list(): void {
     this.state.library_list = [
       { servant: "github", library_id: "cicada-lang/cicada-stdlib" },
-      { servant: "gitlab", library_id: "cicada-lang/cicada-stdlib" },
       { servant: "github", library_id: "xieyuheng/the-little-typer" },
     ]
   }
