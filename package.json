@@ -12,17 +12,17 @@
     "trailingComma": "es5"
   },
   "dependencies": {
-    "@cicada-lang/cicada": "^0.1.29",
+    "@cicada-lang/cicada": "^0.1.30",
     "@cicada-lang/partech": "^0.1.2",
-    "@gitbeaker/browser": "^29.1.0",
+    "@gitbeaker/browser": "^29.2.4",
     "@octokit/core": "^3.4.0",
-    "@octokit/rest": "^18.5.3",
+    "@octokit/rest": "^18.5.5",
     "@tailwindcss/forms": "^0.3.2",
     "@tailwindcss/postcss7-compat": "^2.1.2",
-    "@tailwindcss/typography": "^0.4.0",
+    "@tailwindcss/typography": "^0.4.1",
     "autoprefixer": "^9.8.6",
     "axios": "^0.21.1",
-    "js-base64": "^3.6.0",
+    "js-base64": "^3.6.1",
     "postcss": "^7.0.35",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.2",
     "vue": "^2.6.12",
@@ -36,7 +36,7 @@
     "@vue/cli-service": "~4.5.13",
     "prettier": "^2.3.0",
     "prettier-plugin-tailwind-css": "^1.5.0",
-    "typescript": "~4.2.4",
+    "typescript": "~4.3.2",
     "vue-template-compiler": "^2.6.12"
   },
   "browserslist": [
