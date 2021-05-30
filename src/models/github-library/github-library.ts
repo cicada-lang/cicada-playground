@@ -1,9 +1,15 @@
 import { GitLibrary } from "@/models/git-library"
-import { LibraryConfig, Module, Syntax } from "@cicada-lang/cicada"
+import {
+  LibraryConfig,
+  Module,
+  Doc,
+  doc_ext_p,
+  doc_from_file,
+} from "@cicada-lang/cicada"
 import { Octokit } from "@octokit/rest"
 import { Base64 } from "js-base64"
 
-export class GitHubLibrary implements GitLibrary {
+export class GitHubLibrary extends GitLibrary {
   requester: Octokit
   config: LibraryConfig
   cached_mods: Map<string, Module>
@@ -21,6 +27,7 @@ export class GitHubLibrary implements GitLibrary {
     dir: string
     files: Record<string, string>
   }) {
+    super()
     this.requester = opts.requester
     this.config = opts.config
     this.cached_mods = opts.cached_mods || new Map()
@@ -69,59 +76,6 @@ export class GitHubLibrary implements GitLibrary {
       dir,
       files,
     })
-  }
-
-  async fetch_files(): Promise<Record<string, string>> {
-    return await checkout_files({
-      requester: this.requester,
-      owner: this.owner,
-      repo: this.repo,
-      dir: this.dir,
-      config: this.config,
-    })
-  }
-
-  async fetch_file(path: string): Promise<string> {
-    return await checkout_file(path, {
-      requester: this.requester,
-      owner: this.owner,
-      repo: this.repo,
-      dir: this.dir,
-      config: this.config,
-    })
-  }
-
-  async reload(path: string): Promise<Module> {
-    this.cached_mods.delete(path)
-    return await this.load(path)
-  }
-
-  async load(path: string): Promise<Module> {
-    const cached = this.cached_mods.get(path)
-    if (cached) {
-      return cached
-    }
-
-    const text = this.files[path]
-    if (!text) {
-      throw new Error(`Unknown path: ${path}`)
-    }
-
-    const stmts = Syntax.parse_stmts(text)
-
-    const mod = new Module({ library: this })
-    for (const stmt of stmts) {
-      await stmt.execute(mod)
-    }
-
-    this.cached_mods.set(path, mod)
-    return mod
-  }
-
-  async load_mods(): Promise<Map<string, Module>> {
-    const paths = Object.keys(this.files)
-    await Promise.all(paths.map((path) => this.load(path)))
-    return this.cached_mods
   }
 }
 
@@ -190,7 +144,8 @@ async function checkout_files(opts: {
     await Promise.all(
       root.tree
         .filter(
-          (entry) => entry.type === "blob" && entry.path?.endsWith(".cic")
+          (entry) =>
+            entry.type === "blob" && entry.path && doc_ext_p(entry.path)
         )
         .map(async (entry) => {
           const path = entry.path as string
