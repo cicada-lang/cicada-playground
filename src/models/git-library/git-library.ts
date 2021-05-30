@@ -18,7 +18,6 @@ export abstract class GitLibrary extends Library {
     return doc_from_file({ path, text, library: this })
   }
 
-
   async reload(path: string): Promise<Module> {
     this.cached_mods.delete(path)
     return await this.load(path)
