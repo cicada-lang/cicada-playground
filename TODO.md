@@ -1,3 +1,5 @@
+- support gitee
+
 - [view] `home` about the project
 
 - [model] person
