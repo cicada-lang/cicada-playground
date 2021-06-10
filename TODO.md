@@ -1,3 +1,4 @@
+- [maybe] remove `Afterword`
 - support gitee
 
 - [view] `home` about the project
